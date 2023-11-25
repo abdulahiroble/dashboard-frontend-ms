@@ -7,6 +7,7 @@ import {
     BarChartOutlined,
     HomeOutlined
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const { Header, Content, Sider } = Layout;
 
@@ -18,6 +19,7 @@ function getItem(
     icon?: React.ReactNode,
     children?: MenuItem[],
     type?: 'group',
+    link?: React.ReactNode,
 ): MenuItem {
     return {
         key,
@@ -25,26 +27,56 @@ function getItem(
         children,
         label,
         type,
+        link,
     } as MenuItem;
 }
 
-const items: MenuItem[] = [
-    getItem('Asset Map', 'sub1', <HomeOutlined />, [
-        getItem('Option 5', '5'),
-        getItem('Option 6', '6'),
-        getItem('Option 7', '7'),
-        getItem('Option 8', '8'),
-    ]),
-
-    getItem('Asset Table', 'sub2', <TableOutlined />, [
-        getItem('Option 9', '9'),
-        getItem('Option 10', '10'),
-    ]),
-
-    getItem('Asset Charts', 'sub3', <BarChartOutlined />, [
-        getItem('Option 11', '11'),
-        getItem('Option 12', '12'),
-    ]),
+const items: MenuProps['items'] = [
+    {
+        label: 'General',
+        key: 'General',
+        icon: <HomeOutlined />,
+        children: [
+            {
+                key: 'map',
+                label: (
+                    <Link to="/map">
+                        Map
+                    </Link>
+                ),
+            },
+        ],
+    },
+    {
+        label: 'Ferret',
+        key: 'ferret',
+        icon: <TableOutlined />,
+        children: [
+            {
+                key: 'table',
+                label: (
+                    <Link to="/chart">
+                        Chart
+                    </Link>
+                ),
+            },
+        ],
+    },
+    {
+        label: 'Compsumption',
+        key: 'SubMenu',
+        icon: <BarChartOutlined />,
+        children: [
+            {
+                key: 'table',
+                label: (
+                    <Link to="/table">
+                        Table
+                    </Link>
+                ),
+            },
+        ],
+    },
 ];
 
 const Sidebar: React.FC = () => {
@@ -64,8 +96,9 @@ const Sidebar: React.FC = () => {
                     bottom: 0,
                 }}
             >
-                {/* <BarChartOutlined color='white' /> */}
-                <div className="demo-logo-vertical" />
+                <img alt="logo" src="/logo-white.svg" style={{ width: "72%", marginTop: "20px" }} />
+                <br />
+                <br />
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
             </Sider>
             <Layout className="site-layout" style={{ marginLeft: 200 }}>
