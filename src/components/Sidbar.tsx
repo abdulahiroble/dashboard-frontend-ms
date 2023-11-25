@@ -1,34 +1,83 @@
 import React from 'react';
-import {
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    TeamOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import DataTable from './DataTable';
+import {
+    TableOutlined,
+    BarChartOutlined,
+    HomeOutlined
+} from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    type?: 'group',
+    link?: React.ReactNode,
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+        link,
+    } as MenuItem;
+}
 
 const items: MenuProps['items'] = [
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    AppstoreOutlined,
-    TeamOutlined,
-    ShopOutlined,
-].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-}));
+    {
+        label: 'General',
+        key: 'General',
+        icon: <HomeOutlined />,
+        children: [
+            {
+                key: 'map',
+                label: (
+                    <Link to="/map">
+                        Map
+                    </Link>
+                ),
+            },
+        ],
+    },
+    {
+        label: 'Ferret',
+        key: 'ferret',
+        icon: <TableOutlined />,
+        children: [
+            {
+                key: 'table',
+                label: (
+                    <Link to="/chart">
+                        Chart
+                    </Link>
+                ),
+            },
+        ],
+    },
+    {
+        label: 'Compsumption',
+        key: 'SubMenu',
+        icon: <BarChartOutlined />,
+        children: [
+            {
+                key: 'table',
+                label: (
+                    <Link to="/table">
+                        Table
+                    </Link>
+                ),
+            },
+        ],
+    },
+];
 
 const Sidebar: React.FC = () => {
     const {
@@ -47,7 +96,9 @@ const Sidebar: React.FC = () => {
                     bottom: 0,
                 }}
             >
-                <div className="demo-logo-vertical" />
+                <img alt="logo" src="/logo-white.svg" style={{ width: "72%", marginTop: "20px" }} />
+                <br />
+                <br />
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
             </Sider>
             <Layout className="site-layout" style={{ marginLeft: 200 }}>
@@ -57,7 +108,6 @@ const Sidebar: React.FC = () => {
                         <DataTable />
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
             </Layout>
         </Layout>
     );
