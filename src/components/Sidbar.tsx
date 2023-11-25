@@ -1,34 +1,51 @@
 import React from 'react';
-import {
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    TeamOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import DataTable from './DataTable';
-
-const { Header, Content, Footer, Sider } = Layout;
-
-const items: MenuProps['items'] = [
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
+import {
+    TableOutlined,
     BarChartOutlined,
-    CloudOutlined,
-    AppstoreOutlined,
-    TeamOutlined,
-    ShopOutlined,
-].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-}));
+    HomeOutlined
+} from '@ant-design/icons';
+
+const { Header, Content, Sider } = Layout;
+
+type MenuItem = Required<MenuProps>['items'][number];
+
+function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    type?: 'group',
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+        type,
+    } as MenuItem;
+}
+
+const items: MenuItem[] = [
+    getItem('Asset Map', 'sub1', <HomeOutlined />, [
+        getItem('Option 5', '5'),
+        getItem('Option 6', '6'),
+        getItem('Option 7', '7'),
+        getItem('Option 8', '8'),
+    ]),
+
+    getItem('Asset Table', 'sub2', <TableOutlined />, [
+        getItem('Option 9', '9'),
+        getItem('Option 10', '10'),
+    ]),
+
+    getItem('Asset Charts', 'sub3', <BarChartOutlined />, [
+        getItem('Option 11', '11'),
+        getItem('Option 12', '12'),
+    ]),
+];
 
 const Sidebar: React.FC = () => {
     const {
@@ -47,6 +64,7 @@ const Sidebar: React.FC = () => {
                     bottom: 0,
                 }}
             >
+                {/* <BarChartOutlined color='white' /> */}
                 <div className="demo-logo-vertical" />
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
             </Sider>
@@ -57,7 +75,6 @@ const Sidebar: React.FC = () => {
                         <DataTable />
                     </div>
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
             </Layout>
         </Layout>
     );
