@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import DataTable from './DataTable';
@@ -79,7 +79,7 @@ const items: MenuProps['items'] = [
     },
 ];
 
-const Sidebar: React.FC = () => {
+const Sidebar: any = ({ children }: any) => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -96,16 +96,18 @@ const Sidebar: React.FC = () => {
                     bottom: 0,
                 }}
             >
-                <img alt="logo" src="/logo-white.svg" style={{ width: "72%", marginTop: "20px" }} />
+                <Link to="/">
+                    <img alt="logo" src="/logo-white.svg" style={{ width: "72%", marginTop: "20px" }} />
+                </Link>
                 <br />
                 <br />
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
             </Sider>
             <Layout className="site-layout" style={{ marginLeft: 200 }}>
                 <Header style={{ padding: 0, background: colorBgContainer }} />
-                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                    <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer }}>
-                        <DataTable />
+                <Content >
+                    <div>
+                        {children}
                     </div>
                 </Content>
             </Layout>

@@ -1,8 +1,13 @@
-import React from 'react'
+import Sidebar from '../components/Sidbar'
+import MapComponent from '../components/MapComponent'
 
 const AssetQualityMap = () => {
     return (
-        <div>AssetQualityMap</div>
+        <div className='App'>
+            <Sidebar >
+                <MapComponent />
+            </Sidebar>
+        </div>
     )
 }
 

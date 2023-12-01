@@ -1,19 +1,25 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules/
+client/cypress/reports
+client/coverage
+client/.env
+.pnp
 .pnp.js
 
 # testing
-/coverage
+/client/coverage
+/client/cypress/reports
+/client/cypress/screenshots
+/client/cypress/videos
 
 # production
-/build
+build
 
 # misc
 .DS_Store
-.env.local
+# .env.local
 .env.development.local
 .env.test.local
 .env.production.local
