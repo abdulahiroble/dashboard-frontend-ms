@@ -1,8 +1,9 @@
 import React from 'react'
+import BarChart from '../components/BarChart'
 
 const AssetQualityChart = () => {
     return (
-        <div>AssetQualityChart</div>
+        <BarChart />
     )
 }
 
