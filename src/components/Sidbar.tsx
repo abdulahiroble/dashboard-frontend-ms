@@ -106,7 +106,7 @@ const Sidebar: any = ({ children }: any) => {
             <Layout className="site-layout" style={{ marginLeft: 200 }}>
                 <Header style={{ padding: 0, background: colorBgContainer }} />
                 <Content >
-                    <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer }}>
+                    <div>
                         {children}
                     </div>
                 </Content>
