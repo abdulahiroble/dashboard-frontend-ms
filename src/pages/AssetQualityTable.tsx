@@ -84,6 +84,6 @@ const data: DataType[] = [
     },
 ];
 
-const AssetQualityTable: React.FC = () => <Sidebar><Table columns={columns} dataSource={data} /></Sidebar>;
+const AssetQualityTable: React.FC = () => <div className="App"><Sidebar><Table columns={columns} dataSource={data} /></Sidebar>;</div>
 
 export default AssetQualityTable;
