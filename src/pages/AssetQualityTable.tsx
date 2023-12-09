@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Sidebar from '../components/Sidbar';
+import Tab from '../components/Tabs';
 
 interface DataType {
     key: string;
@@ -84,6 +85,11 @@ const data: DataType[] = [
     },
 ];
 
-const AssetQualityTable: React.FC = () => <div className="App"><Sidebar><Table columns={columns} dataSource={data} /></Sidebar>;</div>
+const AssetQualityTable: React.FC = () => <div className="App">
+    <Sidebar>
+        <Tab />
+        <Table columns={columns} dataSource={data} />
+    </Sidebar>
+</div>
 
 export default AssetQualityTable;
