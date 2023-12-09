@@ -8,6 +8,7 @@ import {
     HomeOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import NavBar from './Navbar';
 
 const { Header, Content, Sider } = Layout;
 
@@ -85,33 +86,36 @@ const Sidebar: any = ({ children }: any) => {
     } = theme.useToken();
 
     return (
-        <Layout hasSider>
-            <Sider
-                style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                    position: 'fixed',
-                    left: 0,
-                    top: 0,
-                    bottom: 0,
-                }}
-            >
-                <Link to="/">
-                    <img alt="logo" src="/logo-white.svg" style={{ width: "72%", marginTop: "20px" }} />
-                </Link>
-                <br />
-                <br />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
-            </Sider>
-            <Layout className="site-layout" style={{ marginLeft: 200 }}>
-                <Header style={{ padding: 0, background: colorBgContainer }} />
-                <Content >
-                    <div>
-                        {children}
-                    </div>
-                </Content>
+        <>
+            <NavBar />
+            <Layout hasSider>
+                <Sider
+                    style={{
+                        overflow: 'auto',
+                        height: '100vh',
+                        position: 'fixed',
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                    }}
+                >
+                    <Link to="/">
+                        <img alt="logo" src="/logo-white.svg" style={{ width: "72%", marginTop: "20px" }} />
+                    </Link>
+                    <br />
+                    <br />
+                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+                </Sider>
+                <Layout className="site-layout" style={{ marginLeft: 200 }}>
+                    {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
+                    <Content >
+                        <div>
+                            {children}
+                        </div>
+                    </Content>
+                </Layout>
             </Layout>
-        </Layout>
+        </>
     );
 };
 
