@@ -1,14 +1,13 @@
-import { useEffect, useState } from 'react';
-import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
+import React, { useEffect, useState } from "react";
+import { GoogleMap } from "@react-google-maps/api";
+import { useLoadScript } from "@react-google-maps/api";
 
-const containerStyle = {
-    width: '100vw', // 100% of viewport width
-    height: '100vh', // 100% of viewport height
+const mapContainerStyle = {
+    width: '100vw',
+    height: '100vh',
 };
 
-
-const MapComponent = () => {
-
+export default function MapComponent() {
     const [lat, setLat] = useState([]);
     const [long, setLong] = useState([]);
 
@@ -35,19 +34,20 @@ const MapComponent = () => {
     };
 
 
-    return (
-        <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as any}>
-            <GoogleMap mapContainerStyle={containerStyle} center={myCity as any} zoom={14} onLoad={handleMapLoad}>
-                <Marker
-                    position={{
-                        lat: parseFloat(myCity.lat as any),
-                        lng: parseFloat(myCity.lng as any),
-                    }}
-                >
-                </Marker>
-            </GoogleMap>
-        </LoadScript>
-    );
-};
 
-export default MapComponent;
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    });
+
+    if (loadError) return <div>Error loading Maps</div>;
+    if (!isLoaded) return <div>Loading Maps</div>;
+
+    return (
+        <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={14}
+            center={myCity as any}
+            onLoad={handleMapLoad}
+        />
+    );
+}

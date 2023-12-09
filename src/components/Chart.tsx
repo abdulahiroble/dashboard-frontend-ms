@@ -1,14 +1,6 @@
-// import moment from 'moment-timezone';
-// import styled from 'styled-components';
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-// import { useSelector } from 'react-redux';
-// import { useLocale } from 'hooks';
-// import { selectedTimezoneSelector } from 'modules/app/selectors';
-// import { Spinner, ErrorBoundary } from 'components/_common';
-// import { getIntlExporting } from 'utils';
-// import { emptyObject } from 'constants/index';
 
 export const Colors = ['#12f9ff', '#00a6ab', '#a0e101', '#6a9501'];
 
@@ -45,13 +37,15 @@ const Chart: React.FC<Props> = ({ options, className }) => {
     //   }
 
     return (
-        <HighchartsReact
-            highcharts={Highcharts}
-            options={{
-                ...options,
-            }}
-            containerProps={{ className }}
-        />
+        <>
+            <HighchartsReact
+                highcharts={Highcharts}
+                options={{
+                    ...options,
+                }}
+                containerProps={{ className }}
+            />
+        </>
     );
 };
 
