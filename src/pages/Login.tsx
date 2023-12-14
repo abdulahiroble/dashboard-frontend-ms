@@ -59,7 +59,7 @@ const Login = () => {
                 flexDirection: 'column',
             }
         }>
-            <div >
+            <div>
                 <img alt="logo" src="/logo-white.svg" style={{
                     width: "72%",
                     marginLeft: "50px",
