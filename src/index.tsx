@@ -24,7 +24,7 @@ root.render(
           <Route path="/" element={<App />} />
           <Route path='login' element={<Login />} />
           {/* <Route path="profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
-          <Route path="/Registration" element={<Registration />} />
+          <Route path="/registration" element={<Registration />} />
           <Route path="contact" element={<ContactFormComponent />} />
           <Route path="map" element={<AssetQualityMap />} />
           <Route path="table" element={<AssetQualityTable />} />
