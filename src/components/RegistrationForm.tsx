@@ -13,7 +13,7 @@ const { Option } = Select;
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 10 },
     },
     wrapperCol: {
         xs: { span: 24 },
@@ -62,160 +62,177 @@ const RegistrationForm = () => {
     );
 
     return (
-        <>
-            <Col className='Registercontainer'></Col>
-            <Form
-                {...formItemLayout}
-                name="register"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 8 }}
-                // onFinish={onFinish}
-                scrollToFirstError
-            >
-                <Form.Item
-                    name="firstname"
-                    label="First name"
-                    rules={[
-                        {
-                            type: 'string',
-                            message: 'The input is not valid',
-                            min: 3,
-                            max: 50,
-                        },
-                        {
-                            required: true,
-                            message: 'Name must be at least 3 characters long',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95vh', flexDirection: 'column', }}>
+            <div>
+                <img alt="logo" src="/logo-white.svg" style={{
+                    width: "69%",
+                    marginBottom: "30px",
+                    marginLeft: "120px",
+                }} />
+            </div>
+            <div>
 
-                <Form.Item
-                    name="lastname"
-                    label="Last name"
-                    rules={[
-                        {
-                            type: 'string',
-                            message: 'The input is not valid',
-                            min: 3,
-                            max: 50,
-                        },
-                        {
-                            required: true,
-                            message: 'Name must be at least 3 characters long',
-                        },
-                    ]}
+                <Form
+                    {...formItemLayout}
+                    name="register"
+                    labelCol={{ span: 10 }}
+                    wrapperCol={{ span: 10 }}
+                    // onFinish={onFinish}
+                    scrollToFirstError
                 >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="email"
-                    label="E-mail"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="address"
-                    label="Address"
-                    rules={[
-                        {
-                            type: 'string',
-                            message: 'The input is not valid',
-                            min: 3,
-                            max: 50,
-                        },
-                        {
-                            required: true,
-                            message: 'Name must be at least 3 characters long',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="postal"
-                    label="Postal code"
-                    rules={[
-                        {
-                            message: 'The input is not valid',
-                            min: 3,
-                            max: 4,
-                        },
-                        {
-                            required: true,
-                            message: 'Postal code must be at least 3 characters long',
-                        },
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                    name="password"
-                    label="Password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    hasFeedback
-                >
-                    <Input.Password />
-                </Form.Item>
-
-                <Form.Item
-                    name="confirm"
-                    label="Confirm Password"
-                    dependencies={['password']}
-                    hasFeedback
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please confirm your password!',
-                        },
-                        ({ getFieldValue }) => ({
-                            validator(_, value) {
-                                if (!value || getFieldValue('password') === value) {
-                                    return Promise.resolve();
-                                }
-                                return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                    <Form.Item
+                        name="firstname"
+                        label="First name"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[
+                            {
+                                type: 'string',
+                                message: 'The input is not valid',
+                                min: 3,
+                                max: 50,
                             },
-                        }),
-                    ]}
-                >
-                    <Input.Password />
-                </Form.Item>
+                            {
+                                required: true,
+                                message: 'Name must be at least 3 characters long',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
 
-                <Form.Item
-                    name="phone"
-                    label="Phone Number"
-                    rules={[{ required: true, message: 'Please input your phone number!' }]}
-                >
-                    <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-                </Form.Item>
+                    <Form.Item
+                        name="lastname"
+                        label="Last name"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[
+                            {
+                                type: 'string',
+                                message: 'The input is not valid',
+                                min: 3,
+                                max: 50,
+                            },
+                            {
+                                required: true,
+                                message: 'Name must be at least 3 characters long',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
 
-                <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
-            </Form>
-        </>
+                    <Form.Item
+                        name="email"
+                        label="E-mail"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[
+                            {
+                                type: 'email',
+                                message: 'The input is not valid E-mail!',
+                            },
+                            {
+                                required: true,
+                                message: 'Please input your E-mail!',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="address"
+                        label="Address"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[
+                            {
+                                type: 'string',
+                                message: 'The input is not valid',
+                                min: 3,
+                                max: 50,
+                            },
+                            {
+                                required: true,
+                                message: 'Name must be at least 3 characters long',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="postal"
+                        label="Postal code"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[
+                            {
+                                message: 'The input is not valid',
+                                min: 3,
+                                max: 4,
+                            },
+                            {
+                                required: true,
+                                message: 'Postal code must be at least 3 characters long',
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="password"
+                        label="Password"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        ]}
+                        hasFeedback
+                    >
+                        <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="confirm"
+                        label="Confirm Password"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        dependencies={['password']}
+                        hasFeedback
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please confirm your password!',
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(_, value) {
+                                    if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                                },
+                            }),
+                        ]}
+                    >
+                        <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="phone"
+                        label="Phone Number"
+                        wrapperCol={{ offset: 0, span: 40 }}
+                        rules={[{ required: true, message: 'Please input your phone number!' }]}
+                    >
+                        <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+                    </Form.Item>
+
+                    <Form.Item {...tailFormItemLayout}>
+                        <Button type="primary" htmlType="submit">
+                            Register
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </div>
+        </div>
     );
 };
 

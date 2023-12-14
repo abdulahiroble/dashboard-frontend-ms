@@ -2,11 +2,9 @@ import RegistrationForm from '../components/RegistrationForm';
 
 const Registration = () => {
     return (
-        <main>
-            <div>
-                <RegistrationForm />
-            </div>
-        </main>
+        <div>
+            <RegistrationForm />
+        </div>
     )
 }
 
