@@ -50,54 +50,57 @@ const Login = () => {
     };
 
     return (
-        <Col className=''>
-            {/* <Affix>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <Col>
+                {/* <Affix>
                 <Navigation />
             </Affix> */}
-            <Col className='Logincontainer' span={10}>
-                <Form
-                    style={{ textAlign: 'center' }}
-                    className='form'
-                    name="Login"
-                    labelCol={{ span: 10 }}
-                    wrapperCol={{ span: 10 }}
-                    initialValues={{ remember: true }}
-                    //   onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                >
-                    <h1>Login</h1>
-
-
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
+                <Col className='Logincontainer' span={40}>
+                    <Form
+                        className='form'
+                        name="Login"
+                        labelCol={{ span: 40 }}
+                        wrapperCol={{ span: 40 }}
+                        initialValues={{ remember: true }}
+                        //   onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
                     >
-                        <Input />
-                    </Form.Item>
+                        <h1>Login</h1>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
 
-                    {/* <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 0, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item> */}
+                        <Form.Item
+                            label="Email"
+                            name="email"
+                            rules={[{ required: true, message: 'Please input your email!' }]}
+                            wrapperCol={{ offset: 2, span: 40 }}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                    <Form.Item wrapperCol={{ offset: 0, span: 10 }}>
-                        <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
-                            Log in
-                        </Button>
-                    </Form.Item>
-                </Form>
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your password!' }]}
+                            wrapperCol={{ offset: 0, span: 40 }}
+                        >
+                            <Input.Password />
+                        </Form.Item>
+
+                        <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 0, span: 40 }}>
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item>
+
+                        <Form.Item wrapperCol={{ offset: 0, span: 40 }}>
+                            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+                                Log in
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Col>
+                {/* <Footer /> */}
             </Col>
-            {/* <Footer /> */}
-        </Col>
+        </div>
     );
 };
 
