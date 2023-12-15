@@ -64,8 +64,8 @@ const RegistrationForm = () => {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95vh', flexDirection: 'column', }}>
             <div>
-                <img alt="logo" src="/logo-white.svg" style={{
-                    width: "69%",
+                <img alt="logo" src="/point-logo.svg" style={{
+                    // width: "100%",
                     marginBottom: "30px",
                     marginLeft: "120px",
                 }} />

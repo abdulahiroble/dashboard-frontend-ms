@@ -60,8 +60,7 @@ const Login = () => {
             }
         }>
             <div>
-                <img alt="logo" src="/logo-white.svg" style={{
-                    width: "72%",
+                <img alt="logo" src="/point-logo.svg" style={{
                     marginLeft: "50px",
                 }} />
             </div>
