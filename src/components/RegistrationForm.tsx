@@ -6,7 +6,7 @@ import {
     Input,
     Select,
 } from 'antd';
-// import LoadUserCollection from '../services/collections/LoadUserCollection';
+import LoadUserCollection from '../services/collections/LoadUserCollection';
 
 const { Option } = Select;
 
@@ -36,14 +36,16 @@ const tailFormItemLayout = {
 const RegistrationForm = () => {
     const [form] = Form.useForm();
 
-    // const onFinish = async (values) => {
-    //     console.log('Received values of form: ', values);
-    //     const result = await LoadUserCollection.registerUser(values)
+    const onFinish = async (values: any) => {
+        console.log('Received values of form: ', values);
+        const result = await LoadUserCollection.registerUser(values)
 
-    //     if(result.data.success){
-    //         alert("Thank you for creating your registration, please check your email")
-    //     }
-    // };
+        console.log("RESULT=====", result)
+
+        if (result.data.success) {
+            alert("Thank you for creating your registration, please check your email")
+        }
+    };
 
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
@@ -77,11 +79,11 @@ const RegistrationForm = () => {
                     name="register"
                     labelCol={{ span: 10 }}
                     wrapperCol={{ span: 10 }}
-                    // onFinish={onFinish}
+                    onFinish={onFinish}
                     scrollToFirstError
                 >
                     <Form.Item
-                        name="firstname"
+                        name="Firstname"
                         label="First name"
                         wrapperCol={{ offset: 0, span: 40 }}
                         rules={[
@@ -101,7 +103,7 @@ const RegistrationForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="lastname"
+                        name="Lastname"
                         label="Last name"
                         wrapperCol={{ offset: 0, span: 40 }}
                         rules={[
@@ -121,7 +123,7 @@ const RegistrationForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="email"
+                        name="Email"
                         label="E-mail"
                         wrapperCol={{ offset: 0, span: 40 }}
                         rules={[
@@ -139,46 +141,7 @@ const RegistrationForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="address"
-                        label="Address"
-                        wrapperCol={{ offset: 0, span: 40 }}
-                        rules={[
-                            {
-                                type: 'string',
-                                message: 'The input is not valid',
-                                min: 3,
-                                max: 50,
-                            },
-                            {
-                                required: true,
-                                message: 'Name must be at least 3 characters long',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="postal"
-                        label="Postal code"
-                        wrapperCol={{ offset: 0, span: 40 }}
-                        rules={[
-                            {
-                                message: 'The input is not valid',
-                                min: 3,
-                                max: 4,
-                            },
-                            {
-                                required: true,
-                                message: 'Postal code must be at least 3 characters long',
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="password"
+                        name="Password"
                         label="Password"
                         wrapperCol={{ offset: 0, span: 40 }}
                         rules={[
@@ -190,39 +153,6 @@ const RegistrationForm = () => {
                         hasFeedback
                     >
                         <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="confirm"
-                        label="Confirm Password"
-                        wrapperCol={{ offset: 0, span: 40 }}
-                        dependencies={['password']}
-                        hasFeedback
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please confirm your password!',
-                            },
-                            ({ getFieldValue }) => ({
-                                validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
-                                },
-                            }),
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="phone"
-                        label="Phone Number"
-                        wrapperCol={{ offset: 0, span: 40 }}
-                        rules={[{ required: true, message: 'Please input your phone number!' }]}
-                    >
-                        <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
                     </Form.Item>
 
                     <Form.Item {...tailFormItemLayout}>
