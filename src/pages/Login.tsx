@@ -15,35 +15,35 @@ const Login = () => {
     const navigate = useNavigate();
 
 
-    //   const onFinish = async (values) => {
-    //     const result = await LoadUserCollection.authenticateUser(values)
+    const onFinish = async (values: any) => {
+        const result = await LoadUserCollection.authenticateUser(values)
 
-    //     if(result.data.isActive == false) {
-    //       alert("User not activated")
-    //       return false;
-    //     }
+        if (result.data.isActive == false) {
+            alert("User not activated")
+            return false;
+        }
 
-    //     if(result.data.validPassword){
-    //       localStorage.setItem('token',result.data.generatedToken);
-    //       localStorage.setItem('userId',result.data.userId);
+        if (result.data.validPassword) {
+            localStorage.setItem('token', result.data.generatedToken);
+            localStorage.setItem('userId', result.data.userId);
 
-    //       const adminExists = result.data.userRole.find(x => x.role == 'admin') != undefined ? result.data.userRole.find(x => x.role == 'admin') : {}
+            // const adminExists = result.data.userRole.find((x: any) => x.role == 'admin') != undefined ? result.data.userRole.find((x: any) => x.role == 'admin') : {}
 
-    //       if(Object.keys(adminExists).length > 0){ 
-    //         localStorage.setItem('admin',true);
-    //       }else{
-    //         localStorage.setItem('admin',false);
-    //       }
+            // if (Object.keys(adminExists).length > 0) {
+            //     localStorage.setItem('admin', true as any);
+            // } else {
+            //     localStorage.setItem('admin', false as any);
+            // }
 
-    //       alert("Success")
-    //       // navigate("/")
-    //     // CHECK IF ERROR
-    //     }else if(result.data.errorCdoe != ""){
-    //       if(result.data.errorCode == "E101"){
-    //         alert("Wrong email or password")
-    //       }
-    //     }      
-    //   };
+            alert("Success")
+            navigate("/")
+            // CHECK IF ERROR
+        } else if (result.data.errorCdoe != "") {
+            if (result.data.errorCode == "E101") {
+                alert("Wrong email or password")
+            }
+        }
+    };
 
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
@@ -62,6 +62,7 @@ const Login = () => {
             <div>
                 <img alt="logo" src="/point-logo.svg" style={{
                     marginLeft: "50px",
+                    marginBottom: "30px",
                 }} />
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -76,12 +77,10 @@ const Login = () => {
                             labelCol={{ span: 40 }}
                             wrapperCol={{ span: 40 }}
                             initialValues={{ remember: true }}
-                            //   onFinish={onFinish}
+                            onFinish={onFinish}
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
                         >
-                            <h1>Login</h1>
-
 
                             <Form.Item
                                 label="Email"
