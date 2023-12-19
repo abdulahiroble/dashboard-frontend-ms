@@ -19,14 +19,14 @@ class LoadUserCollection {
         return result;
     }
 
-    // authenticateUser = async (data: { key: string | undefined; }) => {
-    //     data.key = process.env.REACT_APP_SECRET_KEY;
-    //     console.log("loginData===", data)
-    //     const result = await axios.post(`${url}/login`, data)
-    //     console.log("RESULT=====", result)
+    authenticateUser = async (data: { key: string | undefined; }) => {
+        data.key = process.env.REACT_APP_SECRET_KEY;
+        console.log("loginData===", data)
+        const result = await axios.post(`http://localhost:3001/api/post/login`, data)
+        console.log("RESULT=====", result)
 
-    //     return result;
-    // }
+        return result;
+    }
 
     // validateSignin = async (token: any, userId: any) => {
     //     const header = {
