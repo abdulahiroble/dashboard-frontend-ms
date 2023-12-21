@@ -3,11 +3,13 @@ import MapComponent from '../components/MapComponent'
 
 const AssetQualityMap = () => {
     return (
-        <div className='App'>
-            <Sidebar >
-                <MapComponent />
-            </Sidebar>
-        </div>
+        <>
+            <div className='App'>
+                <Sidebar >
+                    <MapComponent />
+                </Sidebar>
+            </div>
+        </>
     )
 }
 

@@ -28,21 +28,21 @@ class LoadUserCollection {
         return result;
     }
 
-    // validateSignin = async (token: any, userId: any) => {
-    //     const header = {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'x-access-token': token
-    //         },
-    //         body: JSON.stringify({ userId: userId })
-    //     }
-    //     const result = await fetch(`${url}/login/verify`, header)
-    //     const data = await result.json();
+    validateSignin = async (token: any, userId: any) => {
+        const header = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': token
+            },
+            body: JSON.stringify({ userId: userId })
+        }
+        const result = await fetch(`http://localhost:3001/api/get/login/verify`, header)
+        const data = await result.json();
 
 
-    //     return data;
-    // }
+        return data;
+    }
 
     // getUserProfile = async (id: any) => {
     //     const result = await axios.get(`${url}/users/${id}`)

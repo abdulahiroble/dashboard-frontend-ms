@@ -12,6 +12,7 @@ import AssetQualityChart from './pages/AssetQualityChart';
 import Login from './pages/Login';
 import ContactFormComponent from './components/ContactFormComponent';
 import Registration from './pages/Registration';
+import { ProtectedAdminRoute } from './services/middleware/ProtectedAdminRoute';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -26,11 +27,9 @@ root.render(
           {/* <Route path="profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
           <Route path="/registration" element={<Registration />} />
           <Route path="contact" element={<ContactFormComponent />} />
-          <Route path="map" element={<AssetQualityMap />} />
-          <Route path="table" element={<AssetQualityTable />} />
-          <Route path="chart" element={<AssetQualityChart />} />
-          {/* <Route path="admin" element={<ProtectedAdminRoute><AdminUI /></ProtectedAdminRoute>} /> */}
-          {/* <Route path="admin/logs" element={<ProtectedAdminRoute><AdminLog /></ProtectedAdminRoute>} /> */}
+          <Route path="map" element={<ProtectedAdminRoute><AssetQualityMap /></ProtectedAdminRoute>} />
+          <Route path="table" element={<ProtectedAdminRoute><AssetQualityTable /></ProtectedAdminRoute>} />
+          <Route path="chart" element={<ProtectedAdminRoute><AssetQualityChart /></ProtectedAdminRoute>} />
         </Routes>
       </BrowserRouter>
     </Provider>
