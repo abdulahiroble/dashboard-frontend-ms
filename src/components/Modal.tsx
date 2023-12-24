@@ -5,7 +5,7 @@ import { Marker } from '@react-google-maps/api';
 import Logo from '../logo.svg';
 
 const ModalComponent = ({ stations }: any) => {
-    // console.log(stations.map((x: any) => x.MML))
+    // console.log(stations.map((x: any) => x))
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedStation, setSelectedStation] = useState(null);
@@ -27,56 +27,58 @@ const ModalComponent = ({ stations }: any) => {
         setSelectedStation(station)
     }
 
-    const myCity = {
-        lat: [55.22503702871599, 11.750777235661934],
-        lng: [55.24673402394817, 11.77157725310437]
-    };
-
     return (
         <>
             <div>
-                {stations.map((station: any) => (
-                    <>
-                        <Marker
-                            key={station.MML}
-                            position={{
-                                lat: station.MML[0],
-                                lng: station.MML[1]
-                            }}
-                            onClick={() => showModal()}
-                        />
-                        <Marker
-                            key={station.HOL}
-                            position={{
-                                lat: station.HOL[0],
-                                lng: station.HOL[1]
-                            }}
-                            onClick={() => showModal()}
-                        />
-                        <Marker
-                            key={station.YDN}
-                            position={{
-                                lat: station.YDN[0],
-                                lng: station.YDN[1]
-                            }}
-                            onClick={() => showModal()}
-                        />
-                        <Marker
-                            key={station.NSV}
-                            position={{
-                                lat: station.NSV[0],
-                                lng: station.NSV[1]
-                            }}
-                            onClick={() => showModal()}
-                        />
-                    </>
-                ))}
+                {stations && (
+                    stations?.map((station: any) => (
+                        <>
+                            <Marker
+                                key={station.MML}
+                                position={{
+                                    lat: parseFloat(station.MML[0]),
+                                    lng: parseFloat(station.MML[1])
+                                }}
+                                onClick={() => showModal()}
+                            />
+                            {/* <Marker
+                                key={station.HOL}
+                                position={{
+                                    lat: parseFloat(station.HOL[0]),
+                                    lng: parseFloat(station.HOL[1])
+                                }}
+                                onClick={() => showModal()}
+                            />
+                            <Marker
+                                key={station.YDN}
+                                position={{
+                                    lat: parseFloat(station.YDN[0]),
+                                    lng: parseFloat(station.YDN[1])
+                                }}
+                                onClick={() => showModal()}
+                            />
+                            <Marker
+                                key={station.NSV}
+                                position={{
+                                    lat: parseFloat(station.NSV[0]),
+                                    lng: parseFloat(station.NSV[1])
+                                }}
+                                onClick={() => showModal()}
+                            /> */}
+                            <Modal title={"Basic Modal"} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                                <p>Some contents...</p>
+                            </Modal>
+                        </>
+                    ))
+                )}
             </div>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            {/* <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
-            </Modal>
+            </Modal> */}
         </>
     );
 };

@@ -16,22 +16,26 @@ const stations = [{
 }] as any
 
 export default function MapComponent() {
-    const [lat, setLat] = useState([]);
-    const [long, setLong] = useState([]);
+    const [lat, setLat] = useState(Number);
+    const [long, setLong] = useState(Number);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
             // setLat(position.coords.latitude as any);
             // setLong(position.coords.longitude as any);
-            setLat(55.22503702871599 as any);
-            setLong(11.750777235661934 as any);
+
+            // setLat(55.22503702871599 as any);
+            // setLong(11.750777235661934 as any);
+
+            setLat(55.22503702871599);
+            setLong(11.750777235661934);
         });
     }, [lat, long]);
 
     const myCity = {
         lat: lat,
-        lng: long,
-    }
+        lng: long
+    } as any
 
     // const myCity = {
     //     lat: [55.22503702871599, 11.750777235661934],
@@ -58,13 +62,34 @@ export default function MapComponent() {
     if (!isLoaded) return <div>Loading Maps</div>;
 
     return (
-        <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={13}
-            center={myCity as any}
-            onLoad={handleMapLoad}
-        >
-            <ModalComponent stations={stations} />
-        </GoogleMap>
+        // <GoogleMap
+        //     mapContainerStyle={mapContainerStyle}
+        //     zoom={13}
+        //     center={myCity}
+        //     onLoad={handleMapLoad}
+        // >
+        //     <ModalComponent stations={stations} />
+        // </GoogleMap>
+        <>
+            {myCity && (
+                <GoogleMap
+                    mapContainerStyle={mapContainerStyle}
+                    zoom={13}
+                    center={myCity}
+                    onLoad={handleMapLoad}
+                >
+                    <Marker
+                        key={myCity.lat}
+                        position={{
+                            lat: parseFloat(myCity.lat),
+                            lng: parseFloat(myCity.lng)
+                        }}
+                    >
+                    </Marker>
+                    {/* <ModalComponent stations={stations} /> */}
+                </GoogleMap>
+            )}
+        </>
     );
 }
+
