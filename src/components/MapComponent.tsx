@@ -60,7 +60,7 @@ export default function MapComponent() {
     return (
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
-            zoom={8}
+            zoom={13}
             center={myCity as any}
             onLoad={handleMapLoad}
         >
