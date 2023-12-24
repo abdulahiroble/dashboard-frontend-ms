@@ -18,7 +18,7 @@ const Login = () => {
     const onFinish = async (values: any) => {
         const result = await LoadUserCollection.authenticateUser(values)
 
-        if (result.data.isActive == false) {
+        if (result.data.isActive === false) {
             alert("User not activated")
             return false;
         }
