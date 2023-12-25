@@ -2,22 +2,17 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useLoadScript } from "@react-google-maps/api";
 import ModalComponent from "./Modal";
+import LoadStationsCollection from "../services/collections/LoadStationsCollection";
 
 const mapContainerStyle = {
     width: '100vw',
     height: '100vh',
 };
 
-const stations = [{
-    MML: [55.22503702871599, 11.750777235661934],
-    HOL: [55.24673402394817, 11.77157725310437],
-    YDN: [55.20835346894054, 11.740549069590848],
-    NSV: [55.24740224552815, 11.713430586100033],
-}] as any
-
 export default function MapComponent() {
     const [lat, setLat] = useState(Number);
     const [long, setLong] = useState(Number);
+    const [station, setStation] = useState(null);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -30,6 +25,10 @@ export default function MapComponent() {
             setLat(55.22503702871599);
             setLong(11.750777235661934);
         });
+        LoadStationsCollection.getAllStations().then((result: any) => {
+            console.log(result)
+            setStation(result.object)
+        })
     }, [lat, long]);
 
     const myCity = {
@@ -62,14 +61,6 @@ export default function MapComponent() {
     if (!isLoaded) return <div>Loading Maps</div>;
 
     return (
-        // <GoogleMap
-        //     mapContainerStyle={mapContainerStyle}
-        //     zoom={13}
-        //     center={myCity}
-        //     onLoad={handleMapLoad}
-        // >
-        //     <ModalComponent stations={stations} />
-        // </GoogleMap>
         <>
             {myCity && (
                 <GoogleMap
@@ -86,7 +77,7 @@ export default function MapComponent() {
                         }}
                     >
                     </Marker> */}
-                    <ModalComponent stations={stations} />
+                    <ModalComponent stations={station} />
                 </GoogleMap>
             )}
         </>
