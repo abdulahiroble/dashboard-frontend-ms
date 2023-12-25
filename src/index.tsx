@@ -18,22 +18,20 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path='login' element={<Login />} />
-          {/* <Route path="profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
-          <Route path="/registration" element={<Registration />} />
-          <Route path="contact" element={<ContactFormComponent />} />
-          <Route path="map" element={<ProtectedAdminRoute><AssetQualityMap /></ProtectedAdminRoute>} />
-          <Route path="table" element={<ProtectedAdminRoute><AssetQualityTable /></ProtectedAdminRoute>} />
-          <Route path="chart" element={<ProtectedAdminRoute><AssetQualityChart /></ProtectedAdminRoute>} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path='login' element={<Login />} />
+        {/* <Route path="profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
+        <Route path="/registration" element={<Registration />} />
+        <Route path="contact" element={<ContactFormComponent />} />
+        <Route path="map" element={<ProtectedAdminRoute><AssetQualityMap /></ProtectedAdminRoute>} />
+        <Route path="table" element={<ProtectedAdminRoute><AssetQualityTable /></ProtectedAdminRoute>} />
+        <Route path="chart" element={<ProtectedAdminRoute><AssetQualityChart /></ProtectedAdminRoute>} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>
 );
 
 reportWebVitals();
