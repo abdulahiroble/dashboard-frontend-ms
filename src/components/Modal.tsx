@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
-import { Marker } from '@react-google-maps/api';
+import { MarkerF } from '@react-google-maps/api';
 // import Logo from './Logo';
 import Logo from '../logo.svg';
 
@@ -33,7 +33,7 @@ const ModalComponent = ({ stations }: any) => {
                 {stations && (
                     stations?.map((station: any) => (
                         <>
-                            <Marker
+                            <MarkerF
                                 key={station.MML}
                                 position={{
                                     lat: parseFloat(station.MML[0]),
@@ -41,7 +41,7 @@ const ModalComponent = ({ stations }: any) => {
                                 }}
                                 onClick={() => showModal()}
                             />
-                            {/* <Marker
+                            <MarkerF
                                 key={station.HOL}
                                 position={{
                                     lat: parseFloat(station.HOL[0]),
@@ -49,7 +49,7 @@ const ModalComponent = ({ stations }: any) => {
                                 }}
                                 onClick={() => showModal()}
                             />
-                            <Marker
+                            <MarkerF
                                 key={station.YDN}
                                 position={{
                                     lat: parseFloat(station.YDN[0]),
@@ -57,14 +57,14 @@ const ModalComponent = ({ stations }: any) => {
                                 }}
                                 onClick={() => showModal()}
                             />
-                            <Marker
+                            <MarkerF
                                 key={station.NSV}
                                 position={{
                                     lat: parseFloat(station.NSV[0]),
                                     lng: parseFloat(station.NSV[1])
                                 }}
                                 onClick={() => showModal()}
-                            /> */}
+                            />
                             <Modal title={"Basic Modal"} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                                 <p>Some contents...</p>
                                 <p>Some contents...</p>
