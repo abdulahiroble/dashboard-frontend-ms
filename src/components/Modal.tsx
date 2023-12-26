@@ -53,42 +53,17 @@ const ModalComponent = ({ stations }: any) => {
                     ))
                 )}
                 <Modal title={`Station - ${selectedStation}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    {/* {loadflow?.map((item: any) => item.primary_substation === "HOL" && (
-                        <div>
-                            <h3>Loadflow</h3>
-                            <p>Name: {item.name}</p>
-                            <p>Substation: {item.primary_substation}</p>
-                            <p>Period: {item.period}</p>
-                            <p>Time stamps: {item.n_timestamps}</p>
-                            <p>Failed: {item.n_failed}</p>
-                            <p>Success: {item.success_percentage}</p>
-                            <p>Simulation: {item.simulation_id}</p>
-                            <p>Version: {item.version_id}</p>
-                        </div>
-                    ))} */}
-                    {/* {loadflow?.slice(0, 4).map((item: any) => item.primary_substation === selectedStation && (
+                    {ferretConnectedness?.slice(0, 3).map((item: any) => item.values_by_station.map((x: any) => x.station_name === selectedStation) && (
                         <div key={item.id}>
-                            <h3>Loadflow</h3>
-                            <p>Name: {item.name}</p>
-                            <p>Substation: {item.primary_substation}</p>
-                            <p>Period: {item.period}</p>
-                            <p>Time stamps: {item.n_timestamps}</p>
-                            <p>Failed: {item.n_failed}</p>
-                            <p>Success: {item.success_percentage}</p>
-                            <p>Simulation: {item.simulation_id}</p>
+                            <hr />
+                            <p>Connectedness: {item.overall_connectedness}%</p>
+                            <p>Station: {selectedStation}</p>
                             <p>Version: {item.version_id}</p>
-                        </div>
-                    ))} */}
-                    {ferretConnectedness?.slice(0, 4).map((item: any) => item.name === "nkforsyning" && (
-                        <div key={item.id}>
-                            <h3>Ferret Connectedness</h3>
-                            <p>Station: {item.overall_connectedness}</p>
-                            {/* <p>Period: {item.period}</p>
-                            <p>Time stamps: {item.n_timestamps}</p>
+                            {/* <p>Time stamps: {item.n_timestamps}</p>
                             <p>Failed: {item.n_failed}</p>
                             <p>Success: {item.success_percentage}</p>
                             <p>Simulation: {item.simulation_id}</p>
-                            <p>Version: {item.version_id}</p> */}
+                            <p>Version: {item.version_id}</p>  */}
                         </div>
                     ))}
 
