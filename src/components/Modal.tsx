@@ -6,9 +6,9 @@ import Logo from '../logo.svg';
 import LoadFerretCountsCollection from '../services/collections/LoadFerretCountsCollection';
 import LoadStationsCollection from '../services/collections/LoadStationsCollection';
 import LoadflowCollection from '../services/collections/LoadflowCollection';
+import LoadForbrugsCollection from '../services/collections/LoadForbrugsCollection';
 
 const ModalComponent = ({ stations }: any) => {
-    console.log(stations)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedStation, setSelectedStation] = useState(null);
@@ -27,9 +27,12 @@ const ModalComponent = ({ stations }: any) => {
         LoadflowCollection.getAllStations().then((result: any) => {
             setLoadflow(result.object)
         })
+        LoadForbrugsCollection.getAllForbrug().then((result: any) => {
+            // console.log(result.object)
+            // setLoadflow(result.object)
+        })
     };
 
-    // console.log(loadflow.map((item: any) => item.primary_substation))
 
 
     const handleOk = () => {

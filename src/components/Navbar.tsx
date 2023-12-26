@@ -20,11 +20,6 @@ const NavBar: React.FC = () => {
 
     const items: MenuProps['items'] = [
         {
-            label: 'Navigation One',
-            key: 'mail',
-            icon: <MailOutlined />,
-        },
-        {
             label: 'Menu',
             key: 'Menu',
             icon: <SettingOutlined />,
