@@ -19,9 +19,6 @@ export default function MapComponent() {
             // setLat(position.coords.latitude as any);
             // setLong(position.coords.longitude as any);
 
-            // setLat(55.22503702871599 as any);
-            // setLong(11.750777235661934 as any);
-
             setLat(55.22503702871599);
             setLong(11.750777235661934);
         });
@@ -31,15 +28,10 @@ export default function MapComponent() {
         })
     }, [lat, long]);
 
-    const myCity = {
+    const city = {
         lat: lat,
         lng: long
     } as any
-
-    // const myCity = {
-    //     lat: [55.22503702871599, 11.750777235661934],
-    //     lng: [55.24673402394817, 11.77157725310437]
-    // }
 
     const handleMapLoad = (map: any) => {
         map.setOptions({
@@ -62,11 +54,11 @@ export default function MapComponent() {
 
     return (
         <>
-            {myCity && (
+            {city && (
                 <GoogleMap
                     mapContainerStyle={mapContainerStyle}
                     zoom={13}
-                    center={myCity}
+                    center={city}
                     onLoad={handleMapLoad}
                 >
                     <ModalComponent stations={station} />

@@ -16,7 +16,6 @@ const ModalComponent = ({ stations }: any) => {
 
     const showModal = (station: any) => {
         setIsModalOpen(true);
-        // console.log(station)
         setSelectedStation(station)
 
         LoadFerretConnectedness.getAllFerretConnectedness().then((result: any) => {
@@ -29,11 +28,8 @@ const ModalComponent = ({ stations }: any) => {
         })
         LoadForbrugsCollection.getAllForbrug().then((result: any) => {
             // console.log(result.object)
-            // setLoadflow(result.object)
         })
     };
-
-
 
     const handleOk = () => {
         setIsModalOpen(false);
