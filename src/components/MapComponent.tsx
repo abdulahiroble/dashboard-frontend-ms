@@ -69,14 +69,6 @@ export default function MapComponent() {
                     center={myCity}
                     onLoad={handleMapLoad}
                 >
-                    {/* <Marker
-                        key={myCity.lat}
-                        position={{
-                            lat: parseFloat(myCity.lat),
-                            lng: parseFloat(myCity.lng)
-                        }}
-                    >
-                    </Marker> */}
                     <ModalComponent stations={station} />
                 </GoogleMap>
             )}

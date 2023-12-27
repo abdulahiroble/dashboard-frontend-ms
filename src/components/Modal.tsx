@@ -4,6 +4,7 @@ import { MarkerF } from '@react-google-maps/api';
 import LoadflowCollection from '../services/collections/LoadflowCollection';
 import LoadForbrugsCollection from '../services/collections/LoadForbrugsCollection';
 import LoadFerretConnectedness from '../services/collections/LoadFerretConnectedness';
+import Logo from '../transformer-power-voltage-energy-electronic-svgrepo-com.svg';
 
 const ModalComponent = ({ stations }: any) => {
 
@@ -49,24 +50,28 @@ const ModalComponent = ({ stations }: any) => {
                     stations.map((marker: any) => (
                         <MarkerF key={marker.id} position={marker.position}
                             onClick={() => showModal(marker.id)}
+                            icon={{
+                                url: Logo,
+                                origin: new window.google.maps.Point(0, 0),
+                                anchor: new window.google.maps.Point(20, 20),
+                                scaledSize: new window.google.maps.Size(40, 40),
+                                fillColor: "#000",
+                            }}
                         />
                     ))
                 )}
                 <Modal title={`Station - ${selectedStation}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                    {ferretConnectedness?.slice(0, 3).map((item: any) => item.values_by_station.map((x: any) => x.station_name === selectedStation) && (
-                        <div key={item.id}>
-                            <hr />
-                            <p>Connectedness: {item.overall_connectedness}%</p>
-                            <p>Station: {selectedStation}</p>
-                            <p>Version: {item.version_id}</p>
-                            {/* <p>Time stamps: {item.n_timestamps}</p>
-                            <p>Failed: {item.n_failed}</p>
-                            <p>Success: {item.success_percentage}</p>
-                            <p>Simulation: {item.simulation_id}</p>
-                            <p>Version: {item.version_id}</p>  */}
-                        </div>
-                    ))}
-
+                    {ferretConnectedness?.slice(0, 4)?.map((item: any) => item.values_by_station?.map((x: any) => (
+                        x.station_name === selectedStation && (
+                            <div key={x.id}>
+                                <p>Time started: {new Date(item.time_started).toLocaleString()}</p>
+                                <p>Time finished: {new Date(item.time_finished).toLocaleString()}</p>
+                                <p>Version: {item.version_id}</p>
+                                <p>Connectedness: {x.connectedness}%</p>
+                                <hr />
+                            </div>
+                        )
+                    )))}
                 </Modal>
             </div>
         </>
