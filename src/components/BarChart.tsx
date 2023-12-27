@@ -13,28 +13,43 @@ interface ChartDataProps {
 }
 
 const BarChart: any = () => {
-    const [chartData, setChartData] = useState<ChartDataProps | null>(null);
+    const [chartData, setChartData] = useState<ChartDataProps | null | any>(null);
 
     useEffect(() => {
-        LoadflowCollection.getAllStations().then((result: any) => {
-            console.log(result)
-            // setChartData(result.object)
-        })
+        //    const data = LoadflowCollection.getAllStations().then((result: any) => {
+        //          result.object.map((item: any) => [
+        //             item,
+        //             item.primary_substation,
+        //             item.period,
+        //             item.n_timestamps,
+        //             item.n_successful,
+        //             item.n_failed,
+        //             item.success_percentage,
+        //             item.simulation_id,
+        //             item.version_id,
+        //             item.name,
+        //         ])
 
-        setChartData({
-            series: [
-                {
-                    name: 'Percentage success',
-                    data: [1, 2, 3, 4, 5],
-                    pointPlacement: 'between',
-                },
-            ],
-            title: "loadflow",
-            yAxisTitle: "Percentage success",
-            xAxisTitle: "Year",
-            group: "nkforsyning",
-        });
+        //     })
 
+        const data = LoadflowCollection.getAllStations().then((result: any) => {
+
+            setChartData({
+                series: [
+                    {
+                        name: 'Loadflow',
+                        data: result.object.map((item: any) => [item.n_timestamps, item.success_percentage]),
+                        // data: data?.map((item: any) => [item[2], item[1]]),
+                        pointPlacement: 'between',
+                    },
+                ],
+                title: "loadflow",
+                yAxisTitle: "Percentage",
+                xAxisTitle: "Year",
+                group: "nkforsyning",
+            });
+
+        }) as any
     }, [])
 
 
