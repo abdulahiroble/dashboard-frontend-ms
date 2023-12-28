@@ -22,37 +22,92 @@ const BarChart: any = () => {
 
 
     useEffect(() => {
-        LoadflowCollection.getAllStations().then((result: any) => {
-            setChartData({
-                series: [
-                    {
-                        name: '',
-                        data: result.object.map((item: any) => [
-                            item.primary_substation,
-                            item.period,
-                            item.n_timestamps,
-                            item.n_successful,
-                            item.n_failed,
-                            item.success_percentage,
-                            item.simulation_id,
-                            item.version_id,
-                            item.name,
-                        ])
-                        // data: result.object.map((item: any) => item)
-                    },
-                ],
-                title: "loadflow nkforsyning",
-                yAxisTitle: "Success Percentage",
-                xAxisTitle: "Period",
-                group: "nkforsyning",
-                categories: result.object.map((item: any) => item.primary_substation)
-            });
-        })
+        // LoadflowCollection.getAllStations().then((result: any) => {
+        //     setChartData({
+        //         series: [
+        //             {
+        //                 name: '',
+        //                 data: result.object.map((item: any) => item)
+        //             },
+        //         ],
+        //         title: "loadflow nkforsyning",
+        //         yAxisTitle: "Success Percentage",
+        //         xAxisTitle: "Period",
+        //         group: "nkforsyning",
+        //         categories: result.object.map((item: any) => item.primary_substation)
+        //     });
+        // })
+
+        const data = [{
+            "primary_substation": "HOL",
+            "period": "2020-08",
+            "n_timestamps": "577",
+            "n_successful": "0",
+            "n_failed": "577",
+            "success_percentage": "0.0",
+            "simulation_id": "320",
+            "version_id": "384",
+            "name": "nkforsyning"
+        }, {
+            "primary_substation": "MML",
+            "period": "2020-08",
+            "n_timestamps": "571",
+            "n_successful": "0",
+            "n_failed": "571",
+            "success_percentage": "0.0",
+            "simulation_id": "320",
+            "version_id": "384",
+            "name": "nkforsyning"
+        }, {
+            "primary_substation": "NSV",
+            "period": "2020-08",
+            "n_timestamps": "611",
+            "n_successful": "1",
+            "n_failed": "611",
+            "success_percentage": "0.0",
+            "simulation_id": "320",
+            "version_id": "384",
+            "name": "nkforsyning"
+        }, {
+            "primary_substation": "YDN",
+            "period": "2020-08",
+            "n_timestamps": "583",
+            "n_successful": "99",
+            "n_failed": "583",
+            "success_percentage": "0.0",
+            "simulation_id": "320",
+            "version_id": "384",
+            "name": "nkforsyning"
+        }]
+
+        setChartData({
+            series: [
+                {
+                    name: '',
+                    data: data.map((item: any) => [
+                        item.simulation_id,
+                        item.n_successful,
+                        item.n_failed,
+                        item.success_percentage
+                    ])
+                },
+            ],
+            title: "loadflow nkforsyning",
+            yAxisTitle: "Success Percentage",
+            xAxisTitle: "Period",
+            group: "nkforsyning",
+            categories: data.map((item: any) => item.primary_substation)
+        });
+
     }, [])
+
+    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[1])))
 
     // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item)))
 
-    console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[2])))
+    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[2])))
+
+    console.log(chartData?.series.map((item: any) => item.data.map((item: any) => parseFloat(item[1]))))
 
     const options = {
         chart: {
@@ -108,9 +163,21 @@ const BarChart: any = () => {
         // }]
         series: [{
             name: 'Success Percentage',
-            data: [1, 2, 3, 4]
-            // data: chartData?.series.map((item: any) => item.data.map((item: any) => item[6]))
-        },]
+            data: chartData?.series.map((item: any) => item.data.map((item: any) => parseFloat(item[1])))
+        },
+        {
+            name: 'Failed Percentage',
+            data: [6, 1, 3, 4]
+        },
+        {
+            name: 'Success Percentage',
+            data: [3, 8, 3, 4]
+        },
+        {
+            name: 'Simulation id',
+            data: [9, 2, 3, 4]
+        }
+        ]
     };
 
     return (
