@@ -28,15 +28,6 @@ const NavBar: React.FC = () => {
                     type: 'group',
                     label: (
                         <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-                            Change tenant
-                        </a>
-                    ),
-                    key: 'change-tenant',
-                },
-                {
-                    type: 'group',
-                    label: (
-                        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
                             Account settings
                         </a>
                     ),

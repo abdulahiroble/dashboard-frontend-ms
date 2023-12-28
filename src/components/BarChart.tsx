@@ -20,98 +20,98 @@ interface ChartDataProps {
 const BarChart: any = () => {
     const [chartData, setChartData] = useState<ChartDataProps | null | any>(null);
 
+
     useEffect(() => {
         LoadflowCollection.getAllStations().then((result: any) => {
             setChartData({
                 series: [
                     {
-                        name: 'Success Percentage',
-                        data: result.object.map((item: any) => [Date.parse(item.period), item.success_percentage]),
+                        name: '',
+                        data: result.object.map((item: any) => [
+                            item.primary_substation,
+                            item.period,
+                            item.n_timestamps,
+                            item.n_successful,
+                            item.n_failed,
+                            item.success_percentage,
+                            item.simulation_id,
+                            item.version_id,
+                            item.name,
+                        ])
+                        // data: result.object.map((item: any) => item)
                     },
                 ],
-                title: "loadflow",
-                yAxisTitle: "Percentage",
-                // xAxisTitle: "Success Percentage",
+                title: "loadflow nkforsyning",
+                yAxisTitle: "Success Percentage",
+                xAxisTitle: "Period",
                 group: "nkforsyning",
+                categories: result.object.map((item: any) => item.primary_substation)
             });
-
         })
     }, [])
 
+    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item)))
+
+    console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[2])))
 
     const options = {
         chart: {
-            type: 'column',
-            zoomType: 'x'
+            type: 'column'
         },
         title: {
             text: chartData?.title,
+            align: 'center',
         },
         xAxis: {
-            type: 'datetime',
-            title: {
-                text: chartData?.xAxisTitle,
-            },
+            categories: chartData?.categories,
         },
         yAxis: {
+            min: 0,
             title: {
-                text: chartData?.yAxisTitle,
+                text: chartData?.yAxisTitle
             },
         },
-        series: chartData?.series,
-    }
-
-    // var dates = ["2019-06-14 17:00:00", "2019-06-14 17:01:00", "2021-04-13 06:15:00"]
-
-    // const options = {
-    //     chart: {
-    //         type: 'column',
-    //         zoomType: 'x'
-    //     },
-
-    //     title: {
-    //         text: 'Wavy Date Filter'
-    //     },
-
-    //     xAxis: {
-    //         type: 'datetime',
-    //         // This is from the Highcharts Stock - Stock license required
-    //         ordinal: true,
-    //         tickPositioner: function () {
-    //             return dates.map(function (date) {
-    //                 return Date.parse(date);
-    //             });
-    //         }
-    //     },
-
-    //     yAxis: {
-    //         min: 0,
-    //         title: {
-    //             text: 'Observations'
-    //         }
-    //     },
-
-    //     plotOptions: {
-    //         column: {
-    //             pointPadding: 0.2,
-    //             borderWidth: 0
-    //         }
-    //     },
-
-    //     legend: {
-    //         title: {
-    //             text: 'Observations'
-    //         }
-    //     },
-    //     series: [{
-    //         type: 'column',
-    //         data: (function () {
-    //             return dates.map(function (date, i) {
-    //                 return [Date.parse(date)];
-    //             });
-    //         })()
-    //     }]
-    // };
+        // legend: {
+        //     align: 'left',
+        //     x: 70,
+        //     verticalAlign: 'top',
+        //     y: 70,
+        //     floating: true,
+        //     borderWidth: 1,
+        //     shadow: false
+        // },
+        legend: {
+            align: 'right',
+            verticalAlign: 'top',
+            layout: 'vertical',
+            itemMarginBottom: 15,
+            padding: 15,
+            y: 30,
+            borderWidth: 1,
+        },
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            // pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        // categories: chartData?.series.map((item: any) => item.data.map((item: any) => item[2])),
+        // series: [{
+        //     name: 'Success Percentage',
+        //     data: chartData?.series.map((item: any) => item.data.map((item: any) => item[2]))
+        // }]
+        series: [{
+            name: 'Success Percentage',
+            data: [1, 2, 3, 4]
+            // data: chartData?.series.map((item: any) => item.data.map((item: any) => item[6]))
+        },]
+    };
 
     return (
         <HighchartsReact
@@ -120,5 +120,67 @@ const BarChart: any = () => {
         />
     )
 }
+
+
+//     const options = {
+//         chart: {
+//             type: 'column'
+//         },
+//         title: {
+//             text: 'Major trophies for some English teams',
+//             align: 'left'
+//         },
+//         xAxis: {
+//             categories: ['Arsenal', 'Chelsea', 'Liverpool', 'Manchester United']
+//         },
+//         yAxis: {
+//             min: 0,
+//             title: {
+//                 text: 'Count trophies'
+//             },
+//             stackLabels: {
+//                 enabled: true
+//             }
+//         },
+//         legend: {
+//             align: 'left',
+//             x: 70,
+//             verticalAlign: 'top',
+//             y: 70,
+//             floating: true,
+//             borderWidth: 1,
+//             shadow: false
+//         },
+//         tooltip: {
+//             headerFormat: '<b>{point.x}</b><br/>',
+//             pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+//         },
+//         plotOptions: {
+//             column: {
+//                 stacking: 'normal',
+//                 dataLabels: {
+//                     enabled: true
+//                 }
+//             }
+//         },
+//         series: [{
+//             name: 'BPL',
+//             data: [3, 5, 1, 13]
+//         }, {
+//             name: 'FA Cup',
+//             data: [14, 8, 8, 12]
+//         }, {
+//             name: 'CL',
+//             data: [0, 2, 6, 3]
+//         }]
+//     };
+
+//     return (
+//         <HighchartsReact
+//             highcharts={Highcharts}
+//             options={options}
+//         />
+//     )
+// }
 
 export default BarChart
