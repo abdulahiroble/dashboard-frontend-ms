@@ -50,7 +50,7 @@ const BarChart: any = () => {
             "name": "nkforsyning"
         }, {
             "primary_substation": "MML",
-            "period": "2020-08",
+            "period": "2021-08",
             "n_timestamps": "571",
             "n_successful": "0",
             "n_failed": "571",
@@ -60,7 +60,7 @@ const BarChart: any = () => {
             "name": "nkforsyning"
         }, {
             "primary_substation": "NSV",
-            "period": "2020-08",
+            "period": "2022-08",
             "n_timestamps": "611",
             "n_successful": "1",
             "n_failed": "611",
@@ -70,7 +70,7 @@ const BarChart: any = () => {
             "name": "nkforsyning"
         }, {
             "primary_substation": "YDN",
-            "period": "2020-08",
+            "period": "2023-08",
             "n_timestamps": "583",
             "n_successful": "99",
             "n_failed": "583",
@@ -80,23 +80,28 @@ const BarChart: any = () => {
             "name": "nkforsyning"
         }]
 
+        const datas = data.map((item: any, index: any) => {
+            // const firstCountsArray = item[index]
+
+            // const firstCounts = firstCountsArray[index];
+
+            return [item.primary_substation, item.period, item.n_timestamps, item.n_successful, item.n_failed, item.success_percentage, item.simulation_id, item.version_id, item.name];
+        });
+
+        console.log(datas.map((item: any) => item[1]))
+
         setChartData({
             series: [
                 {
-                    name: '',
-                    data: data.map((item: any) => [
-                        item.simulation_id,
-                        item.n_successful,
-                        item.n_failed,
-                        item.success_percentage
-                    ])
+                    name: 'n_successful',
+                    data: datas.map((item: any) => parseFloat(item[2]))
                 },
             ],
             title: "loadflow nkforsyning",
             yAxisTitle: "Success Percentage",
             xAxisTitle: "Period",
             group: "nkforsyning",
-            categories: data.map((item: any) => item.primary_substation)
+            categories: datas.map((item: any) => item[1])
         });
 
     }, [])
@@ -107,7 +112,7 @@ const BarChart: any = () => {
 
     // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[2])))
 
-    console.log(chartData?.series.map((item: any) => item.data.map((item: any) => parseFloat(item[1]))))
+    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => parseFloat(item[1]))))
 
     const options = {
         chart: {
@@ -126,15 +131,6 @@ const BarChart: any = () => {
                 text: chartData?.yAxisTitle
             },
         },
-        // legend: {
-        //     align: 'left',
-        //     x: 70,
-        //     verticalAlign: 'top',
-        //     y: 70,
-        //     floating: true,
-        //     borderWidth: 1,
-        //     shadow: false
-        // },
         legend: {
             align: 'right',
             verticalAlign: 'top',
@@ -146,7 +142,6 @@ const BarChart: any = () => {
         },
         tooltip: {
             headerFormat: '<b>{point.x}</b><br/>',
-            // pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
         },
         plotOptions: {
             column: {
@@ -156,28 +151,7 @@ const BarChart: any = () => {
                 }
             }
         },
-        // categories: chartData?.series.map((item: any) => item.data.map((item: any) => item[2])),
-        // series: [{
-        //     name: 'Success Percentage',
-        //     data: chartData?.series.map((item: any) => item.data.map((item: any) => item[2]))
-        // }]
-        series: [{
-            name: 'Success Percentage',
-            data: chartData?.series.map((item: any) => item.data.map((item: any) => parseFloat(item[1])))
-        },
-        {
-            name: 'Failed Percentage',
-            data: [6, 1, 3, 4]
-        },
-        {
-            name: 'Success Percentage',
-            data: [3, 8, 3, 4]
-        },
-        {
-            name: 'Simulation id',
-            data: [9, 2, 3, 4]
-        }
-        ]
+        series: chartData?.series,
     };
 
     return (
