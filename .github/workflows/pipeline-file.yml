@@ -1,7 +1,7 @@
 name: Server Build & Push
 
 env:
-  IMAGE_NAME: dashboard-frontend-ms:latest
+  IMAGE_NAME: dashboard-frontend-ms
   BRANCH_NAME: ${{ github.ref}}
   BUILD_TAG: ${{ github.sha }}
   GOOGLE_APPLICATION_CREDENTIALS: '${{ secrets.SERVICE_USER_CREDS_2 }}'
