@@ -94,7 +94,7 @@ const BarChart: any = () => {
             series: [
                 {
                     name: 'n_successful',
-                    data: datas.map((item: any) => item[3])
+                    data: datas.map((item: any) => parseFloat(item[3]))
                 },
             ],
             title: "loadflow nkforsyning",
@@ -151,7 +151,7 @@ const BarChart: any = () => {
                 }
             }
         },
-        series: chartData.series,
+        series: chartData?.series,
     };
 
     return (
