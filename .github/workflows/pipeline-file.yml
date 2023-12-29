@@ -1,0 +1,51 @@
+name: Server Build & Push
+
+env:
+  IMAGE_NAME: dashboard-fronted-ms
+  BRANCH_NAME: ${{ github.ref}}
+  BUILD_TAG: ${{ github.sha }}
+  GOOGLE_APPLICATION_CREDENTIALS: '${{ secrets.SERVICE_USER_CREDS_2 }}'
+
+on:
+  push:
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Set up gcloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: hovedopgave-23
+          service_account_key: ${{ secrets.SERVICE_USER_CREDS_2 }}
+          install_components: 'gke-gcloud-auth-plugin'
+          export_default_credentials: true
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: hovedopgave-23
+          service_account: dascboard-svc@hovedopgave-23.iam.gserviceaccount.com
+          credentials_json: ${{ secrets.SERVICE_USER_CREDS_2 }}
+
+      - name: 'Docker auth'
+        run: |-
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build image
+        run: docker compose -f docker-compose.yml build
+
+      - name: Push Docker image
+        run: |
+          docker tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
+          docker push us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
+
+      - name: deploy to gke
+        run: |
+          export BUILD_TAG=${{ env.BUILD_TAG }}
+          gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project hovedopgave-23
+          envsubst < manifests/gks-deployment.yml | kubectl apply -f -
+          envsubst < manifests/config-map.yml | kubectl apply -f -
