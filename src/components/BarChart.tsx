@@ -22,87 +22,57 @@ const BarChart: any = () => {
 
 
     useEffect(() => {
-        // LoadflowCollection.getAllStations().then((result: any) => {
-        //     setChartData({
-        //         series: [
-        //             {
-        //                 name: '',
-        //                 data: result.object.map((item: any) => item)
-        //             },
-        //         ],
-        //         title: "loadflow nkforsyning",
-        //         yAxisTitle: "Success Percentage",
-        //         xAxisTitle: "Period",
-        //         group: "nkforsyning",
-        //         categories: result.object.map((item: any) => item.primary_substation)
-        //     });
-        // })
+        LoadflowCollection.getAllStations().then((result: any) => {
 
-        const data = [{
-            "primary_substation": "HOL",
-            "period": "2020-08",
-            "n_timestamps": "577",
-            "n_successful": "0",
-            "n_failed": "577",
-            "success_percentage": "0.0",
-            "simulation_id": "320",
-            "version_id": "384",
-            "name": "nkforsyning"
-        }, {
-            "primary_substation": "MML",
-            "period": "2021-08",
-            "n_timestamps": "571",
-            "n_successful": "0",
-            "n_failed": "571",
-            "success_percentage": "0.0",
-            "simulation_id": "320",
-            "version_id": "384",
-            "name": "nkforsyning"
-        }, {
-            "primary_substation": "NSV",
-            "period": "2022-08",
-            "n_timestamps": "611",
-            "n_successful": "1",
-            "n_failed": "611",
-            "success_percentage": "0.0",
-            "simulation_id": "320",
-            "version_id": "384",
-            "name": "nkforsyning"
-        }, {
-            "primary_substation": "YDN",
-            "period": "2023-08",
-            "n_timestamps": "583",
-            "n_successful": "99",
-            "n_failed": "583",
-            "success_percentage": "0.0",
-            "simulation_id": "320",
-            "version_id": "384",
-            "name": "nkforsyning"
-        }]
 
-        const datas = data.map((item: any, index: any) => {
-            // const firstCountsArray = item[index]
 
-            // const firstCounts = firstCountsArray[index];
+            const datas = result.object.map((item: any, index: any) => {
+                // const firstCountsArray = item[index]
 
-            return [item.primary_substation, item.period, item.n_timestamps, item.n_successful, item.n_failed, item.success_percentage, item.simulation_id, item.version_id, item.name];
-        });
+                // const firstCounts = firstCountsArray[index];
 
-        console.log(datas.map((item: any) => item[1]))
+                return [item.primary_substation, new Date(item.period).toLocaleDateString(), item.n_timestamps, item.n_successful, item.n_failed, item.success_percentage, item.simulation_id, item.version_id, item.name];
+            });
 
-        setChartData({
-            series: [
-                {
-                    name: 'n_successful',
-                    data: datas.map((item: any) => parseFloat(item[2]))
-                },
-            ],
-            title: "loadflow nkforsyning",
-            yAxisTitle: "Success Percentage",
-            xAxisTitle: "Period",
-            group: "nkforsyning",
-            categories: datas.map((item: any) => item[1])
-        });
+            // console.log(datas.map((item: any) => item[1]))
+
+
+            setChartData({
+                series: [
+                    {
+                        name: "Success",
+                        data: datas.map((item: any) => item[2])
+                    },
+                    {
+                        name: "Failed",
+                        data: datas.map((item: any) => item[4])
+                    },
+                    {
+                        name: "Success Percentage",
+                        data: datas.map((item: any) => parseFloat(item[5]))
+                    },
+                    {
+                        name: "Simulation ID",
+                        data: datas.map((item: any) => item[6])
+                    },
+                    {
+                        name: "Version ID",
+                        data: datas.map((item: any) => item[7])
+                    },
+                    {
+                        name: "Name",
+                        data: datas.map((item: any) => item[8])
+                    }
+                ],
+                title: "loadflow nkforsyning",
+                yAxisTitle: "Success Percentage",
+                xAxisTitle: "Period",
+                group: "nkforsyning",
+                categories: datas.map((item: any) => item[1]),
+            });
+
+
+        })
 
     }, [])
 
