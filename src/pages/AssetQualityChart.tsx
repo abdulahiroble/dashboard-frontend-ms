@@ -7,7 +7,6 @@ const AssetQualityChart = () => {
         <div className="App">
             <Sidebar>
                 <BarChart />
-                <Counter />
             </Sidebar>
         </div>
     )
