@@ -7,6 +7,7 @@ RUN npm install axios --save
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 3000
+ENV REACT_APP_PORT=3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "prod"]
