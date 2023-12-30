@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dashboard-api-authservice
+  name: dashboard-frontend-ms
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dashboard-api-authservice
+      app: dashboard-frontend-ms
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,12 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: dashboard-api-authservice
+        app: dashboard-frontend-ms
     spec:
       nodeSelector:
         "kubernetes.io/os": linux  # Update this line
       containers:
-      - name: dashboard-api-authservice
+      - name: dashboard-frontend-ms
         # image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-api:3
         image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-api-ms:${BUILD_TAG}
         # image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${BUILD_TAG}
@@ -38,11 +38,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dashboard-api-authservice
+  name: dashboard-frontend-ms
 spec:
   type: LoadBalancer
   ports:
   - port: 80
     targetPort: 3001
   selector:
-    app: dashboard-api-authservice
+    app: dashboard-frontend-ms
