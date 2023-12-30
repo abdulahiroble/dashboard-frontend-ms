@@ -1,50 +1,3 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: dashboard-frontend-ms
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: dashboard-frontend-ms
-#   strategy:
-#     rollingUpdate:
-#       maxSurge: 1
-#       maxUnavailable: 1
-#   minReadySeconds: 5 
-#   template:
-#     metadata:
-#       labels:
-#         app: dashboard-frontend-ms
-#     spec:
-#       nodeSelector:
-#         "kubernetes.io/os": linux  # Update this line
-#       containers:
-#       - name: dashboard-frontend-ms
-#         image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-frontend-ms:${BUILD_TAG}
-#         envFrom: 
-#         - configMapRef:
-#             name: dashboard-config-map
-#         ports:
-#         - containerPort: 3000
-#         resources:
-#           requests:
-#             cpu: 250m
-#           limits:
-#             cpu: 500m
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: dashboard-frontend-ms
-# spec:
-#   type: LoadBalancer
-#   ports:
-#   - port: 80
-#     targetPort: 3000
-#   selector:
-#     app: dashboard-frontend-ms
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -65,7 +18,7 @@ spec:
         app: dashboard-frontend-ms
     spec:
       nodeSelector:
-         "kubernetes.io/os": linux  # Update this line
+        "kubernetes.io/os": linux  # Update this line
       containers:
       - name: dashboard-frontend-ms
         image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-frontend-ms:${BUILD_TAG}
@@ -74,16 +27,23 @@ spec:
             name: config-map
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: dashboard-frontend-ms
+  labels:
+    name: dashboard-frontend-ms
 spec:
   type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 3000
-
   selector:
-    app: dashboard-frontend-ms
+    name: dashboard-frontend-ms
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
