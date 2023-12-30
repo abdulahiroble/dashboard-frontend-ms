@@ -22,7 +22,7 @@ spec:
       containers:
       - name: dashboard-frontend-ms
         # image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-api:3
-        image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-api-ms:${BUILD_TAG}
+        image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-frontend-ms:${BUILD_TAG}
         # image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${BUILD_TAG}
         envFrom: 
         - configMapRef:
@@ -43,6 +43,6 @@ spec:
   type: LoadBalancer
   ports:
   - port: 80
-    targetPort: 3001
+    targetPort: 3000
   selector:
     app: dashboard-frontend-ms
