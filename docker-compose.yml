@@ -1,15 +1,9 @@
 version: '3.8'
 
-# networks: 
-#   ep-mern: 
-#     external: true
-
 services:
   frontend-service:
     image: dashboard-frontend-ms:latest
-    # image: ep-mern-frontendservice:v3
-    container_name: ep-frontend-ms 
-    # stdin_open: true
+    container_name: dashboard-frontend-ms 
     build:
       dockerfile: Dockerfile
       context: ./microservice
