@@ -24,7 +24,7 @@ spec:
         image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-frontend-ms:${BUILD_TAG}
         envFrom: 
         - configMapRef:
-            name: config-map
+            name: dashboard-config-map
         ports:
         - containerPort: 3000
         resources:
