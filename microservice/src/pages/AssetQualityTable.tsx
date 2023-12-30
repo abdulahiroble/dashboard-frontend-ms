@@ -1,95 +1,109 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Space, Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Sidebar from '../components/Sidbar';
 import Tab from '../components/Tabs';
+import LoadFerretCountsCollection from '../services/collections/LoadFerretCountsCollection';
 
 interface DataType {
-    key: string;
-    name: string;
-    age: number;
-    address: string;
-    tags: string[];
+    count: number;
+    version_id: number;
+    tenant: string;
+    version_time_finished: string | null;
+    data_uploaded: string;
+    asset_category: string;
+    asset_type: string;
+    asset_type_id: number;
 }
 
-const columns: ColumnsType<DataType> = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Tags',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-        ),
-    },
-];
 
-const data: DataType[] = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-];
+const AssetQualityTable: React.FC = () => {
 
-const AssetQualityTable: React.FC = () => <div className="App">
-    <Sidebar>
-        <Tab />
-        <Table columns={columns} dataSource={data} />
-    </Sidebar>
-</div>
+    const [column, setColumns] = useState<any>(null);
+
+    const columns: ColumnsType<DataType> = [
+        {
+            title: 'Count',
+            dataIndex: 'count',
+            key: 'count',
+            render: (text) => <a>{text}</a>,
+        },
+        {
+            title: 'Version Id',
+            dataIndex: 'version_id',
+            key: 'version_id',
+        },
+        {
+            title: 'Tenant',
+            dataIndex: 'tenant',
+            key: 'tenant',
+        },
+        {
+            title: 'Version Time Finished',
+            dataIndex: 'version_time_finished',
+            key: 'version_time_finished',
+        },
+        {
+            title: 'Data Uploaded',
+            dataIndex: 'data_uploaded',
+            key: 'data_uploaded',
+        },
+        {
+            title: 'Asset Category',
+            dataIndex: 'asset_category',
+            key: 'asset_category',
+        },
+        {
+            title: 'Asset Type',
+            dataIndex: 'asset_type',
+            key: 'asset_type',
+        },
+        {
+            title: 'Asset Type Id',
+            dataIndex: 'asset_type_id',
+            key: 'asset_type_id',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <a>Edit</a>
+                    <a>Delete</a>
+                </Space>
+            ),
+        },
+    ];
+
+    useEffect(() => {
+        LoadFerretCountsCollection.getAllFerrets().then((result: any) => {
+            const data = result.object.map((item: any) => {
+                return {
+                    count: item.count,
+                    version_id: item.version_id,
+                    tenant: item.tenant,
+                    version_time_finished: item.version_time_finished || 'null',
+                    data_uploaded: item.data_uploaded,
+                    asset_category: item.asset_category,
+                    asset_type: item.asset_type,
+                    asset_type_id: item.asset_type_id,
+                }
+
+            })
+            setColumns(data)
+        })
+    }, []);
+
+
+
+    return (
+        <div className="App">
+            <Sidebar>
+                <Tab />
+                <Table columns={columns} dataSource={column} />
+            </Sidebar>
+        </div>
+    );
+};
 
 export default AssetQualityTable;
