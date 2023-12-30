@@ -4,6 +4,7 @@ services:
   frontend-service:
     image: dashboard-frontend-ms:latest
     container_name: dashboard-frontend-ms 
+  
     build:
       dockerfile: Dockerfile
       context: ./microservice
