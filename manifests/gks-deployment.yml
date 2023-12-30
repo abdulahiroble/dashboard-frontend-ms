@@ -33,19 +33,6 @@ spec:
           limits:
             cpu: 500m
 ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: dashboard-frontend-ms
-# spec:
-#   type: LoadBalancer
-#   ports:
-#   - port: 80
-#     protocol: TCP
-#     targetPort: 3000
-#   selector:
-#     app: dashboard-frontend-ms
-
 apiVersion: v1
 kind: Service
 metadata:
