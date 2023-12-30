@@ -20,11 +20,17 @@
 version: '3.8'
 
 services:
-  search-service:
+  client:
     image: dashboard-frontend-ms:latest
     container_name: dashboard-frontend-ms 
+    environment:
+      - REACT_APP_ENVIRONMENT=prod
+
+      - REACT_APP_APIKEY_GOOGLE_MAPS=AIzaSyDdgs8wkgTgXWzrv8Df-Yd3hh3Y4MpZcgk
+
+      - REACT_APP_SECRET_KEY = AAJ-AWESOME-KEY
     build:
       dockerfile: Dockerfile
       context: ./microservice
     ports:
-      - "3000:3000"
+      - "3000:80"
