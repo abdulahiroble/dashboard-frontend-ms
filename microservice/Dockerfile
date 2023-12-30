@@ -7,6 +7,6 @@ RUN npm install axios --save
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["npm", "start"]

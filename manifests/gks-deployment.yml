@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dashboard-frontend-ms
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: dashboard-frontend-ms
@@ -26,7 +26,7 @@ spec:
         - configMapRef:
             name: dashboard-config-map
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
         resources:
           requests:
             cpu: 250m
@@ -41,6 +41,6 @@ spec:
   type: LoadBalancer
   ports:
   - port: 80
-    targetPort: 3000
+    targetPort: 8080
   selector:
     app: dashboard-frontend-ms

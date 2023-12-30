@@ -34,10 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "prod" : "set PORT=3000 && react-scripts start",
-    "dev" : "set PORT=3000 && react-scripts start",
-    "eject": "react-scripts eject",
-    "dev-win" : "set PORT=3000 && react-scripts start"
+    "prod": "PORT=8080 react-scripts start",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
