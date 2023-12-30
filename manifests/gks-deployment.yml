@@ -17,8 +17,9 @@ spec:
       labels:
         app: dashboard-frontend-ms
     spec:
-      nodeSelector:
-        "kubernetes.io/os": linux  # Update this line
+      # Remove or adjust the following line based on your requirements
+      # nodeSelector:
+      #   "kubernetes.io/os": linux
       containers:
       - name: dashboard-frontend-ms
         image: us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/dashboard-frontend-ms:${BUILD_TAG}
@@ -38,11 +39,11 @@ kind: Service
 metadata:
   name: dashboard-frontend-ms
   labels:
-    name: dashboard-frontend-ms
+    app: dashboard-frontend-ms
 spec:
   type: LoadBalancer
   selector:
-    name: dashboard-frontend-ms
+    app: dashboard-frontend-ms
   ports:
     - name: http
       port: 80
