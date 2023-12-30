@@ -40,7 +40,10 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
+  # - port: 80
+  #   targetPort: 3000
   - port: 80
+    protocol: TCP
     targetPort: 3000
   selector:
     app: dashboard-frontend-ms
