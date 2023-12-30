@@ -7,6 +7,7 @@ RUN npm install axios --save
 
 COPY . .
 
+RUN sh -c tsc
 EXPOSE 3000
 
 CMD ["npm", "start"]
