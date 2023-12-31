@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import Sidebar from '../components/Sidbar';
 import Tab from '../components/Tabs';
 import LoadFerretCountsCollection from '../services/collections/LoadFerretCountsCollection';
+import Filter from '../components/Filter';
 
 interface DataType {
     count: number;
@@ -94,12 +95,16 @@ const AssetQualityTable: React.FC = () => {
         })
     }, []);
 
-
-
     return (
         <div className="App">
             <Sidebar>
-                <Tab />
+                {/* <Tab /> */}
+                <Filter defaultValue='hello' options={[
+                    { value: 'hello', label: 'hello' },
+                    { value: 'world', label: 'world' },
+                    { value: 'foo', label: 'foo' },
+                    { value: 'bar', label: 'bar' },
+                ]} />
                 <Table columns={columns} dataSource={column} />
             </Sidebar>
         </div>
