@@ -9,12 +9,13 @@ import Filter from '../components/Filter';
 interface DataType {
     count: number;
     version_id: number;
-    tenant: string;
+    tenant: any;
     version_time_finished: string | null;
     data_uploaded: string;
     asset_category: string;
     asset_type: string;
     asset_type_id: number;
+    address: any;
 }
 
 const AssetQualityTable: React.FC = () => {
@@ -28,8 +29,8 @@ const AssetQualityTable: React.FC = () => {
             dataIndex: 'count',
             key: 'count',
             sorter: (a, b) => a.count - b.count,
-            render: (text) => <a>{text}</a>,
             defaultSortOrder: 'descend',
+            render: (text) => <a>{text}</a>,
         },
         {
             title: 'Version Id',
@@ -40,9 +41,13 @@ const AssetQualityTable: React.FC = () => {
             title: 'Tenant',
             dataIndex: 'tenant',
             key: 'tenant',
-            // onFilter: (value, record) => record.tenant.indexOf(value) === 0,
-            // sorter: (a, b) => a.tenant.length - b.tenant.length,
-            // sortDirections: ['descend'],
+            filters: filter?.map((item: any) => {
+                return {
+                    text: item,
+                    value: item,
+                }
+            }),
+            onFilter: (value, record) => record.tenant.indexOf(value) === 0,
         },
         {
             title: 'Version Time Finished',
@@ -102,23 +107,24 @@ const AssetQualityTable: React.FC = () => {
         })
     }, []);
 
-    // const onChange = (pagination, filters, sorter, extra) => {
-    //     console.log('params', pagination, filters, sorter, extra);
-    // };
+    const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
 
     return (
         <div className="App">
             <Sidebar>
-                <Filter defaultValue="All" options={
+                <Filter defaultValue="All" onChange={onChange} options={
                     filter?.map((item: any) => {
                         return {
                             value: item,
-                            label: item
+                            label: item,
+                            // onFilter: (value: any, record: { address: string | any[]; }) => record.address.indexOf(value) === 0,
                         }
                     })
                 } />
                 <Tab />
-                <Table columns={columns} dataSource={column} />
+                <Table columns={columns} dataSource={column} onChange={onChange} />
             </Sidebar>
         </div>
     );
