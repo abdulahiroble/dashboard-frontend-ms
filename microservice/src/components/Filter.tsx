@@ -2,7 +2,6 @@ import React from 'react';
 import { Select, Space } from 'antd';
 
 interface Option {
-    onChange?: (value: string) => void;
     defaultValue?: any;
     options?: object[];
 }
@@ -18,7 +17,7 @@ const Filter: React.FC<Option> = ({
     <Space wrap>
         <Select
             defaultValue={defaultValue}
-            style={{ width: 120, marginBottom: 50 }}
+            style={{ width: 120, marginBottom: 30 }}
             onChange={handleChange}
             options={options}
         />

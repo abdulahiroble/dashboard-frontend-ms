@@ -17,10 +17,10 @@ interface DataType {
     asset_type_id: number;
 }
 
-
 const AssetQualityTable: React.FC = () => {
 
     const [column, setColumns] = useState<any>(null);
+    const [filter, setFilter] = useState<any>(null);
 
     const columns: ColumnsType<DataType> = [
         {
@@ -92,19 +92,25 @@ const AssetQualityTable: React.FC = () => {
 
             })
             setColumns(data)
+            let unique = [...new Set(data.map((item: any) => item.tenant)) as any];
+            setFilter(unique)
         })
     }, []);
+
+    console.log(filter)
 
     return (
         <div className="App">
             <Sidebar>
-                {/* <Tab /> */}
-                <Filter defaultValue='hello' options={[
-                    { value: 'hello', label: 'hello' },
-                    { value: 'world', label: 'world' },
-                    { value: 'foo', label: 'foo' },
-                    { value: 'bar', label: 'bar' },
-                ]} />
+                <Filter defaultValue="All" options={
+                    filter?.map((item: any) => {
+                        return {
+                            value: item,
+                            label: item
+                        }
+                    })
+                } />
+                <Tab />
                 <Table columns={columns} dataSource={column} />
             </Sidebar>
         </div>
