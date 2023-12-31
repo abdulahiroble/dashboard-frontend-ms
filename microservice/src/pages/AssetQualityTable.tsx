@@ -4,28 +4,32 @@ import type { ColumnsType } from 'antd/es/table';
 import Sidebar from '../components/Sidbar';
 import Tab from '../components/Tabs';
 import LoadFerretCountsCollection from '../services/collections/LoadFerretCountsCollection';
+import Filter from '../components/Filter';
 
 interface DataType {
     count: number;
     version_id: number;
-    tenant: string;
+    tenant: any;
     version_time_finished: string | null;
     data_uploaded: string;
     asset_category: string;
     asset_type: string;
     asset_type_id: number;
+    address: any;
 }
-
 
 const AssetQualityTable: React.FC = () => {
 
     const [column, setColumns] = useState<any>(null);
+    const [filter, setFilter] = useState<any>(null);
 
     const columns: ColumnsType<DataType> = [
         {
             title: 'Count',
             dataIndex: 'count',
             key: 'count',
+            sorter: (a, b) => a.count - b.count,
+            defaultSortOrder: 'descend',
             render: (text) => <a>{text}</a>,
         },
         {
@@ -37,6 +41,13 @@ const AssetQualityTable: React.FC = () => {
             title: 'Tenant',
             dataIndex: 'tenant',
             key: 'tenant',
+            filters: filter?.map((item: any) => {
+                return {
+                    text: item,
+                    value: item,
+                }
+            }),
+            onFilter: (value, record) => record.tenant.indexOf(value) === 0,
         },
         {
             title: 'Version Time Finished',
@@ -91,16 +102,29 @@ const AssetQualityTable: React.FC = () => {
 
             })
             setColumns(data)
+            let unique = [...new Set(data.map((item: any) => item.tenant)) as any];
+            setFilter(unique)
         })
     }, []);
 
-
+    const onChange = (pagination: any, filters: any, sorter: any, extra: any) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
 
     return (
         <div className="App">
             <Sidebar>
+                {/* <Filter defaultValue="All" onChange={onChange} options={
+                    filter?.map((item: any) => {
+                        return {
+                            value: item,
+                            label: item,
+                            onFilter: (value: any, record: { tenant: string | any[]; }) => record.tenant.indexOf(value) === 0,
+                        }
+                    })
+                } /> */}
                 <Tab />
-                <Table columns={columns} dataSource={column} />
+                <Table columns={columns} dataSource={column} onChange={onChange} />
             </Sidebar>
         </div>
     );
