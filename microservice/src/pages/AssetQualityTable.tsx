@@ -27,7 +27,9 @@ const AssetQualityTable: React.FC = () => {
             title: 'Count',
             dataIndex: 'count',
             key: 'count',
+            sorter: (a, b) => a.count - b.count,
             render: (text) => <a>{text}</a>,
+            defaultSortOrder: 'descend',
         },
         {
             title: 'Version Id',
@@ -38,6 +40,9 @@ const AssetQualityTable: React.FC = () => {
             title: 'Tenant',
             dataIndex: 'tenant',
             key: 'tenant',
+            // onFilter: (value, record) => record.tenant.indexOf(value) === 0,
+            // sorter: (a, b) => a.tenant.length - b.tenant.length,
+            // sortDirections: ['descend'],
         },
         {
             title: 'Version Time Finished',
@@ -97,7 +102,9 @@ const AssetQualityTable: React.FC = () => {
         })
     }, []);
 
-    console.log(filter)
+    // const onChange = (pagination, filters, sorter, extra) => {
+    //     console.log('params', pagination, filters, sorter, extra);
+    // };
 
     return (
         <div className="App">
