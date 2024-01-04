@@ -23,8 +23,8 @@ npm start
 ```
 
 ### 3. Enviroments
-REACT_APP_GOOGLE_MAPS_API_KEY = AIzaSyDdgs8wkgTgXWzrv8Df-Yd3hh3Y4MpZcgk
-REACT_APP_SECRET_KEY = AAJ-AWESOME-KEY
+REACT_APP_GOOGLE_MAPS_API_KEY = AIzaSyDdgs8wkgTgXWzrv8Df-Yd3hh3Y4MpZcgk<br>
+REACT_APP_SECRET_KEY = AAJ-AWESOME-KEY<br>
 PORT = 3000
 
 ## 2. Auth Service
@@ -44,10 +44,10 @@ npm install
 
 ### 3. Envrionments:
 
-SQL_CREATE_TEST_DATA = 0
-SQL_SYNC_DATA = 0
-DEV_SQL_HOST = localhost
-DEV_SQL_PORT = 5432
+SQL_CREATE_TEST_DATA = 0<br>
+SQL_SYNC_DATA = 0<br>
+DEV_SQL_HOST = localhost<br>
+DEV_SQL_PORT = 5432<br>
 DEV_SQL_USER = <user>
 DEV_SQL_PASS = <password>
 DEV_SQL_DB = dashboard
