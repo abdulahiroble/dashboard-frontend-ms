@@ -48,24 +48,24 @@ SQL_CREATE_TEST_DATA = 0<br>
 SQL_SYNC_DATA = 0<br>
 DEV_SQL_HOST = localhost<br>
 DEV_SQL_PORT = 5432<br>
-DEV_SQL_USER = <user>
-DEV_SQL_PASS = <password>
-DEV_SQL_DB = dashboard
+DEV_SQL_USER = <user><br>
+DEV_SQL_PASS = <password><br>
+DEV_SQL_DB = dashboard<br>
 
-SQL_CREATE_TEST_DATA = 0
-SQL_SYNC_DATA = 0
+SQL_CREATE_TEST_DATA = 0<br>
+SQL_SYNC_DATA = 0<br>
 
-PROD_SQL_HOST = 35.192.191.48
-PROD_SQL_PORT = 5432
-PROD_SQL_USER = postgres
-PROD_SQL_PASS = Eksamen23
-PROD_SQL_DB = dashboard-auth
+PROD_SQL_HOST = 35.192.191.48<br>
+PROD_SQL_PORT = 5432<br>
+PROD_SQL_USER = postgres<br>
+PROD_SQL_PASS = Eksamen23<br>
+PROD_SQL_DB = dashboard-auth<br>
 
-ENVIRONMENT = prod
+ENVIRONMENT = prod<br>
 
-PORT = 3000
+PORT = 3000<br>
 
-JWT_PRIVATE_KEY = AAJ-AWESOME-KEY
+JWT_PRIVATE_KEY = AAJ-AWESOME-KEY<br>
 
 
 ### Depending on specific needs change `SQL_CREATE_TEST_DATA` & `SQL_SYNC_DATA`to 1 in order to create test data.
@@ -83,27 +83,27 @@ npm run dev
 
 ### 3. Envrionments:
 
-SQL_CREATE_TEST_DATA = 0
-SQL_SYNC_DATA = 0
-DEV_SQL_HOST = localhost
-DEV_SQL_PORT = 5432
-DEV_SQL_USER = <user>
-DEV_SQL_PASS = <password>
-DEV_SQL_DB = dashboard
+SQL_CREATE_TEST_DATA = 0<br>
+SQL_SYNC_DATA = 0<br>
+DEV_SQL_HOST = localhost<br>
+DEV_SQL_PORT = 5432<br>
+DEV_SQL_USER = <user><br>
+DEV_SQL_PASS = <password><br>
+DEV_SQL_DB = dashboard<br>
 
-SQL_CREATE_TEST_DATA = 0
-SQL_SYNC_DATA = 0
+SQL_CREATE_TEST_DATA = 0<br>
+SQL_SYNC_DATA = 0<br>
 
-PROD_SQL_HOST = 35.192.191.48
-PROD_SQL_PORT = 5432
-PROD_SQL_USER = postgres
-PROD_SQL_PASS = Eksamen23
-PROD_SQL_DB = dashboard-auth
+PROD_SQL_HOST = 35.192.191.48<br>
+PROD_SQL_PORT = 5432<br>
+PROD_SQL_USER = postgres<br>
+PROD_SQL_PASS = Eksamen23<br>
+PROD_SQL_DB = dashboard-auth<br>
 
-ENVIRONMENT = prod
+ENVIRONMENT = prod<br>
 
-PORT = 3000
+PORT = 3000<br>
 
-JWT_PRIVATE_KEY = AAJ-AWESOME-KEY
+JWT_PRIVATE_KEY = AAJ-AWESOME-KEY<br>
 
 ### Depending on specific needs change `SQL_CREATE_TEST_DATA` & `SQL_SYNC_DATA`to 1 in order to create test data.
