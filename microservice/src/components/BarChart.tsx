@@ -691,22 +691,30 @@ const BarChart: any = () => {
 
         console.log(stationHOL)
 
-        const failed = stationHOL.map((item: any) => item[1]).map(Number)
-        const success = stationHOL.map((item: any) => item[0]).map(Number)
+        const failedHOL = stationHOL.map((item: any) => item[1]).map(Number)
+        const successHOL = stationHOL.map((item: any) => item[0]).map(Number)
+
+        const failedMML = stationMML.map((item: any) => item.n_failed).map(Number)
+        const successMML = stationMML.map((item: any) => item.n_successful).map(Number)
 
 
-        const averageSuccess = success.reduce((a, b) => a + b, 0) / success.length;
-        const averageFailed = failed.reduce((a, b) => a + b, 0) / failed.length;
+        const averageSuccessHOL = successHOL.reduce((a, b) => a + b, 0) / successHOL.length;
+        const averageFailedHOL = failedHOL.reduce((a, b) => a + b, 0) / failedHOL.length;
+
+        const averageSuccessMML = successMML.reduce((a, b) => a + b, 0) / successMML.length;
+        const averageFailedMML = failedMML.reduce((a, b) => a + b, 0) / failedMML.length;
+
+
 
 
         setChartData({
             series: [
                 {
                     name: 'Successfull',
-                    data: [averageSuccess, 5, 1, 13]
+                    data: [averageSuccessHOL, averageSuccessMML, 1, 13]
                 }, {
                     name: 'Failed',
-                    data: [averageFailed, 8, 8, 12]
+                    data: [averageFailedHOL, averageFailedMML, 8, 12]
                 }
             ],
             title: "loadflow nkforsyning",
