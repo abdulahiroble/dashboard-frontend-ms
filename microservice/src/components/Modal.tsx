@@ -23,7 +23,7 @@ const ModalComponent = ({ stations }: any) => {
             setFerretConnectedness(result.object)
         })
 
-        LoadflowCollection.getAllStations().then((result: any) => {
+        LoadflowCollection.getAllLoadflow().then((result: any) => {
             setLoadflow(result.object)
         })
         LoadForbrugsCollection.getAllForbrug().then((result: any) => {
