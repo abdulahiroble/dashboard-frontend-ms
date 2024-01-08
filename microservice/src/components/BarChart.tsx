@@ -81,20 +81,20 @@ const BarChart: any = () => {
         }]
 
         const datas = data.map((item: any, index: any) => {
-            // const firstCountsArray = item[index]
-
-            // const firstCounts = firstCountsArray[index];
-
-            return [item.primary_substation, item.period, item.n_timestamps, item.n_successful, item.n_failed, item.success_percentage, item.simulation_id, item.version_id, item.name];
+            return [item.n_successful, item.n_failed];
         });
 
-        console.log(datas.map((item: any) => item[1]))
+        console.log(datas.map((item: any) => item))
 
         setChartData({
             series: [
                 {
-                    name: 'n_successful',
-                    data: datas.map((item: any) => parseFloat(item[3]))
+                    name: 'Successfull',
+                    data: datas.map((item: any) => parseFloat(item[1]))
+                },
+                {
+                    name: 'Failed',
+                    data: datas.map((item: any) => parseFloat(item[0]))
                 },
             ],
             title: "loadflow nkforsyning",
@@ -105,14 +105,6 @@ const BarChart: any = () => {
         });
 
     }, [])
-
-    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[1])))
-
-    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item)))
-
-    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => item[2])))
-
-    // console.log(chartData?.series.map((item: any) => item.data.map((item: any) => parseFloat(item[1]))))
 
     const options = {
         chart: {
