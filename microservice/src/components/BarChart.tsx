@@ -681,21 +681,24 @@ const BarChart: any = () => {
         },
         ]
 
-        const stationHOL = data.filter((item: any) => item.primary_substation === "HOL").map((item: any, index: any) => {
-            return [item.n_successful, item.n_failed];
-        });
-
+        const stationHOL = data.filter((item: any) => item.primary_substation === "HOL")
         const stationMML = data.filter((item: any) => item.primary_substation === "MML")
         const stationNSV = data.filter((item: any) => item.primary_substation === "NSV")
         const stationYDN = data.filter((item: any) => item.primary_substation === "YDN")
 
         console.log(stationHOL)
 
-        const failedHOL = stationHOL.map((item: any) => item[1]).map(Number)
-        const successHOL = stationHOL.map((item: any) => item[0]).map(Number)
+        const failedHOL = stationHOL.map((item: any) => item.n_failed).map(Number)
+        const successHOL = stationHOL.map((item: any) => item.n_successful).map(Number)
 
         const failedMML = stationMML.map((item: any) => item.n_failed).map(Number)
         const successMML = stationMML.map((item: any) => item.n_successful).map(Number)
+
+        const failedNSV = stationNSV.map((item: any) => item.n_failed).map(Number)
+        const successNSV = stationHOL.map((item: any) => item.n_successful).map(Number)
+
+        const failedYDN = stationYDN.map((item: any) => item.n_failed).map(Number)
+        const successYDN = stationYDN.map((item: any) => item.n_successful).map(Number)
 
 
         const averageSuccessHOL = successHOL.reduce((a, b) => a + b, 0) / successHOL.length;
@@ -704,17 +707,20 @@ const BarChart: any = () => {
         const averageSuccessMML = successMML.reduce((a, b) => a + b, 0) / successMML.length;
         const averageFailedMML = failedMML.reduce((a, b) => a + b, 0) / failedMML.length;
 
+        const averageSuccessNSV = successNSV.reduce((a, b) => a + b, 0) / successNSV.length;
+        const averageFailedNSV = failedNSV.reduce((a, b) => a + b, 0) / failedNSV.length;
 
-
+        const averageSuccessYDN = successYDN.reduce((a, b) => a + b, 0) / successYDN.length;
+        const averageFailedYDN = failedYDN.reduce((a, b) => a + b, 0) / failedYDN.length;
 
         setChartData({
             series: [
                 {
                     name: 'Successfull',
-                    data: [averageSuccessHOL, averageSuccessMML, 1, 13]
+                    data: [averageSuccessHOL, averageSuccessMML, averageSuccessNSV, averageSuccessYDN]
                 }, {
                     name: 'Failed',
-                    data: [averageFailedHOL, averageFailedMML, 8, 12]
+                    data: [averageFailedHOL, averageFailedMML, averageFailedNSV, averageFailedYDN]
                 }
             ],
             title: "loadflow nkforsyning",
