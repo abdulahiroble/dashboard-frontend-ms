@@ -6,7 +6,7 @@ import axios from 'axios';
 //     url = process.env.REACT_APP_DEVELOPMENT_URL;
 // }
 class LoadflowCollection {
-    getAllStations = async () => {
+    getAllLoadflow = async () => {
         const result = await axios.get(`http://localhost:3004/api/get/loadflow-nkforsyning`);
 
         return result.data
