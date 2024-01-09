@@ -40,11 +40,11 @@ const RegistrationForm = () => {
         console.log('Received values of form: ', values);
         const result = await LoadUserCollection.registerUser(values)
 
-        console.log("RESULT=====", result)
+        // console.log("RESULT=====", result)
 
-        if (result.data.success) {
-            alert("Thank you for creating your registration, please check your email")
-        }
+        // if (result.data.success) {
+        //     alert("Thank you for creating your registration, please check your email")
+        // }
     };
 
     const prefixSelector = (
