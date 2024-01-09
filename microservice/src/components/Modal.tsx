@@ -1,42 +1,41 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { useState } from 'react';
+import { Modal } from 'antd';
 import { MarkerF } from '@react-google-maps/api';
 import LoadflowCollection from '../services/collections/LoadflowCollection';
-import LoadForbrugsCollection from '../services/collections/LoadForbrugsCollection';
 import LoadFerretConnectedness from '../services/collections/LoadFerretConnectedness';
 import Logo from '../transformer-power-voltage-energy-electronic-svgrepo-com.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../app/store';
+import { setIsModalOpen, setFerretConnectedness } from '../features/Modal/ModalSlice';
 
 const ModalComponent = ({ stations }: any) => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedStation, setSelectedStation] = useState(null);
-    const [ferretConnectedness, setFerretConnectedness] = useState<any>(null);
-    const [station, setStation] = useState(null);
-    const [loadflow, setLoadflow] = useState<any>(null);
+
+    const isModalOpen = useSelector((state: RootState) => state.modal.isModalOpen)
+    const ferretConnectedness = useSelector((state: RootState) => state.modal.ferretConnectedness)
+
+    const dispatch = useDispatch()
 
     const showModal = (station: any) => {
-        setIsModalOpen(true);
+        dispatch(setIsModalOpen(true))
         setSelectedStation(station)
 
         LoadFerretConnectedness.getAllFerretConnectedness().then((result: any) => {
-            console.log(result.object)
-            setFerretConnectedness(result.object)
+            dispatch(setFerretConnectedness(result.object))
         })
 
         LoadflowCollection.getAllLoadflow().then((result: any) => {
-            setLoadflow(result.object)
-        })
-        LoadForbrugsCollection.getAllForbrug().then((result: any) => {
-            // console.log(result.object)
+            dispatch({ type: 'modal/setLoadflow', payload: result.object })
         })
     };
 
     const handleOk = () => {
-        setIsModalOpen(false);
+        dispatch(setIsModalOpen(false))
     };
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        dispatch(setIsModalOpen(false))
     };
 
     return (
