@@ -7,10 +7,6 @@ interface Option {
     onChange?: any;
 }
 
-// const handleChange = (value: string) => {
-//     console.log(`selected ${value}`);
-// };
-
 const Filter: React.FC<Option> = ({
     defaultValue,
     options,

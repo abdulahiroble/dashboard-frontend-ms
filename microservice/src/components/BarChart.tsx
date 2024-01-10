@@ -1,10 +1,11 @@
-import { Chart, SeriesOptionsType } from 'highcharts';
+import { SeriesOptionsType } from 'highcharts';
 import React, { useEffect, useMemo, useState } from 'react'
 import { HighchartsReact } from 'highcharts-react-official';
 import Highcharts from 'highcharts'
 import LoadflowCollection from '../services/collections/LoadflowCollection';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import timeline from 'highcharts/modules/timeline';
+import Chart from './Chart';
 
 HighchartsExporting(Highcharts);
 timeline(Highcharts);
@@ -64,7 +65,7 @@ const BarChart: any = () => {
                     }
                 ],
                 title: "loadflow nkforsyning",
-                yAxisTitle: "Success Percentage",
+                yAxisTitle: "Success",
                 xAxisTitle: "Period",
                 group: "nkforsyning",
                 categories: result.object.map((item: any) => item.primary_substation)
@@ -89,6 +90,7 @@ const BarChart: any = () => {
             title: {
                 text: chartData?.yAxisTitle
             },
+            tickInterval: 10,
         },
         legend: {
             align: 'right',
@@ -115,72 +117,10 @@ const BarChart: any = () => {
 
     return (
         <HighchartsReact
-            highcharts={Highcharts}
             options={options}
+            highcharts={Highcharts}
         />
     )
 }
-
-
-//     const options = {
-//         chart: {
-//             type: 'column'
-//         },
-//         title: {
-//             text: 'Major trophies for some English teams',
-//             align: 'left'
-//         },
-//         xAxis: {
-//             categories: ['Arsenal', 'Chelsea', 'Liverpool', 'Manchester United']
-//         },
-//         yAxis: {
-//             min: 0,
-//             title: {
-//                 text: 'Count trophies'
-//             },
-//             stackLabels: {
-//                 enabled: true
-//             }
-//         },
-//         legend: {
-//             align: 'left',
-//             x: 70,
-//             verticalAlign: 'top',
-//             y: 70,
-//             floating: true,
-//             borderWidth: 1,
-//             shadow: false
-//         },
-//         tooltip: {
-//             headerFormat: '<b>{point.x}</b><br/>',
-//             pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-//         },
-//         plotOptions: {
-//             column: {
-//                 stacking: 'normal',
-//                 dataLabels: {
-//                     enabled: true
-//                 }
-//             }
-//         },
-//         series: [{
-//             name: 'BPL',
-//             data: [3, 5, 1, 13]
-//         }, {
-//             name: 'FA Cup',
-//             data: [14, 8, 8, 12]
-//         }, {
-//             name: 'CL',
-//             data: [0, 2, 6, 3]
-//         }]
-//     };
-
-//     return (
-//         <HighchartsReact
-//             highcharts={Highcharts}
-//             options={options}
-//         />
-//     )
-// }
 
 export default BarChart
