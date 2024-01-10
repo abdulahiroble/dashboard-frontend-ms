@@ -11,17 +11,17 @@ require('highcharts/modules/no-data-to-display')(Highcharts);
 
 export interface ChartDataProps {
     rating?: number;
-    seriesHash: { [key: string]: [number, number][] };
-    zIndex: { [key: string]: number };
-    title: string;
-    xAxisTitle: string;
-    yAxisTitle: string;
+    seriesHash?: { [key: string]: [number, number][] };
+    zIndex?: { [key: string]: number };
+    title?: string;
+    xAxisTitle?: string;
+    yAxisTitle?: string;
     legendTitle?: string;
     chartType?: 'line' | 'column';
 }
 
 interface Props {
-    options: Highcharts.Options | null;
+    options?: Highcharts.Options | null;
     className?: string;
     height?: string;
 }
@@ -43,28 +43,12 @@ const Chart: React.FC<Props> = ({ options, className }) => {
                 options={{
                     ...options,
                 }}
-                containerProps={{ className }}
             />
         </>
     );
 };
 
 export default Chart;
-
-
-// const StyledChart = styled(Chart)<{ height?: string }>`
-//   position: relative;
-
-//   .highcharts-credits {
-//     display: none;
-//   }
-
-//   .highcharts-axis-title {
-//     font-size: 16px;
-//   }
-// `;
-
-// export default StyledChart;
 
 export const transformAction = (action: any) => {
     if (!Object.keys(action.payload).length) return {} as ChartDataProps;
