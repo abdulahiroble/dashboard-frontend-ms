@@ -24,44 +24,29 @@ const BarChart: any = () => {
 
     useEffect(() => {
         LoadflowCollection.getAllLoadflow().then((result: any) => {
-            const stationHOL = result.object.filter((item: any) => item.primary_substation === "HOL")
-            const stationMML = result.object.filter((item: any) => item.primary_substation === "MML")
-            const stationNSV = result.object.filter((item: any) => item.primary_substation === "NSV")
-            const stationYDN = result.object.filter((item: any) => item.primary_substation === "YDN")
+            const stationHOL = result.object.filter((item: any) => item.primary_substation === "HOL").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            const stationMML = result.object.filter((item: any) => item.primary_substation === "MML").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            const stationNSV = result.object.filter((item: any) => item.primary_substation === "NSV").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            const stationYDN = result.object.filter((item: any) => item.primary_substation === "YDN").map((item: any) => [item.n_failed, item.n_successful].map(Number))
 
-            const failedHOL = stationHOL.map((item: any) => item.n_failed).map(Number)
-            const successHOL = stationHOL.map((item: any) => item.n_successful).map(Number)
+            const hol = [stationHOL.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationHOL.length, stationHOL.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationHOL.length]
+            const mml = [stationMML.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationMML.length, stationMML.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationMML.length]
+            const nsv = [stationNSV.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationNSV.length, stationNSV.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationNSV.length]
+            const ydn = [stationYDN.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationYDN.length, stationYDN.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationYDN.length]
 
-            const failedMML = stationMML.map((item: any) => item.n_failed).map(Number)
-            const successMML = stationMML.map((item: any) => item.n_successful).map(Number)
-
-            const failedNSV = stationNSV.map((item: any) => item.n_failed).map(Number)
-            const successNSV = stationHOL.map((item: any) => item.n_successful).map(Number)
-
-            const failedYDN = stationYDN.map((item: any) => item.n_failed).map(Number)
-            const successYDN = stationYDN.map((item: any) => item.n_successful).map(Number)
-
-
-            const averageSuccessHOL = successHOL.reduce((a: any, b: any) => a + b, 0) / successHOL.length;
-            const averageFailedHOL = failedHOL.reduce((a: any, b: any) => a + b, 0) / failedHOL.length;
-
-            const averageSuccessMML = successMML.reduce((a: any, b: any) => a + b, 0) / successMML.length;
-            const averageFailedMML = failedMML.reduce((a: any, b: any) => a + b, 0) / failedMML.length;
-
-            const averageSuccessNSV = successNSV.reduce((a: any, b: any) => a + b, 0) / successNSV.length;
-            const averageFailedNSV = failedNSV.reduce((a: any, b: any) => a + b, 0) / failedNSV.length;
-
-            const averageSuccessYDN = successYDN.reduce((a: any, b: any) => a + b, 0) / successYDN.length;
-            const averageFailedYDN = failedYDN.reduce((a: any, b: any) => a + b, 0) / failedYDN.length;
+            const averageHol = [(hol[0] / hol.reduce((a, b) => a + b, 0) * 100).toFixed(0), (hol[1] / hol.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const averageMml = [(mml[0] / mml.reduce((a, b) => a + b, 0) * 100).toFixed(0), (mml[1] / mml.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const averageNsv = [(nsv[0] / nsv.reduce((a, b) => a + b, 0) * 100).toFixed(0), (nsv[1] / nsv.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const averageYdn = [(ydn[0] / ydn.reduce((a, b) => a + b, 0) * 100).toFixed(0), (ydn[1] / ydn.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
 
             setChartData({
                 series: [
                     {
-                        name: 'Successfull',
-                        data: [averageSuccessHOL, averageSuccessMML, averageSuccessNSV, averageSuccessYDN]
+                        name: 'Successfull %',
+                        data: [parseInt(averageHol[0]), parseInt(averageMml[0]), parseInt(averageNsv[0]), parseInt(averageYdn[0])]
                     }, {
-                        name: 'Failed',
-                        data: [averageFailedHOL, averageFailedMML, averageFailedNSV, averageFailedYDN]
+                        name: 'Failed %',
+                        data: [parseInt(averageHol[1]), parseInt(averageMml[1]), parseInt(averageNsv[1]), parseInt(averageYdn[1])]
                     }
                 ],
                 title: "loadflow nkforsyning",
