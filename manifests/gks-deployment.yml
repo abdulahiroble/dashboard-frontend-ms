@@ -31,8 +31,10 @@ spec:
         resources:
           requests:
             cpu: 550m
+            memory: 512Mi
           limits:
             cpu: 800m
+            memory: 1024Mi
 ---
 apiVersion: v1
 kind: Service
