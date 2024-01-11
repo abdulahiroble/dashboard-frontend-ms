@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let url = process.env.REACT_APP_PRODUCTION_AUTH_URL;
-if (process.env.REACT_APP_ENVIRONMENT_PROD == "false") {
+if (process.env.REACT_APP_ENVIRONMENT_PROD !== "false") {
     console.log("hello?")
     url = process.env.REACT_APP_DEVELOPMENT_AUTH_URL;
 }
