@@ -3,7 +3,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 });
 
 describe("Sign in user and logout", () => {
-    it("passes", () => {
+    it("passes.", () => {
 
         // Visit the app root
         cy.visit("http://localhost:3000/login");
