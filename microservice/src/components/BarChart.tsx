@@ -1,10 +1,11 @@
-import { Chart, SeriesOptionsType } from 'highcharts';
+import { SeriesOptionsType } from 'highcharts';
 import React, { useEffect, useMemo, useState } from 'react'
 import { HighchartsReact } from 'highcharts-react-official';
 import Highcharts from 'highcharts'
 import LoadflowCollection from '../services/collections/LoadflowCollection';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import timeline from 'highcharts/modules/timeline';
+import Chart from './Chart';
 
 HighchartsExporting(Highcharts);
 timeline(Highcharts);
@@ -44,6 +45,7 @@ const BarChart: any = () => {
             const averageSuccessHOL = successHOL.reduce((a: any, b: any) => a + b, 0) / successHOL.length;
             const averageFailedHOL = failedHOL.reduce((a: any, b: any) => a + b, 0) / failedHOL.length;
 
+
             const averageSuccessMML = successMML.reduce((a: any, b: any) => a + b, 0) / successMML.length;
             const averageFailedMML = failedMML.reduce((a: any, b: any) => a + b, 0) / failedMML.length;
 
@@ -53,18 +55,31 @@ const BarChart: any = () => {
             const averageSuccessYDN = successYDN.reduce((a: any, b: any) => a + b, 0) / successYDN.length;
             const averageFailedYDN = failedYDN.reduce((a: any, b: any) => a + b, 0) / failedYDN.length;
 
+            const totalHol = averageSuccessHOL + averageFailedHOL;
+            const totalMML = averageSuccessMML + averageFailedMML;
+            const totalNSV = averageSuccessNSV + averageFailedNSV;
+            const totalYDN = averageSuccessYDN + averageFailedYDN;
+
+            const averageSucessHol = (averageSuccessHOL / totalHol * 100).toFixed(0);
+            const averageFailedHol = (averageFailedHOL / totalHol * 100).toFixed(0);
+
+            // const totalMML = averageSuccessMML + averageFailedMML;
+
+            // const averageSucessMML = averageSuccessMML / totalMML * 100;
+            // const averageFailedMML = averageFailedMML / totalMML * 100;
+
             setChartData({
                 series: [
                     {
-                        name: 'Successfull',
-                        data: [averageSuccessHOL, averageSuccessMML, averageSuccessNSV, averageSuccessYDN]
+                        name: 'Successfull %',
+                        data: [parseInt(averageSucessHol), averageSuccessMML, averageSuccessNSV, averageSuccessYDN]
                     }, {
-                        name: 'Failed',
-                        data: [averageFailedHOL, averageFailedMML, averageFailedNSV, averageFailedYDN]
+                        name: 'Failed %',
+                        data: [parseInt(averageFailedHol), averageFailedMML, averageFailedNSV, averageFailedYDN]
                     }
                 ],
                 title: "loadflow nkforsyning",
-                yAxisTitle: "Success Percentage",
+                yAxisTitle: "Success",
                 xAxisTitle: "Period",
                 group: "nkforsyning",
                 categories: result.object.map((item: any) => item.primary_substation)
@@ -115,72 +130,10 @@ const BarChart: any = () => {
 
     return (
         <HighchartsReact
-            highcharts={Highcharts}
             options={options}
+            highcharts={Highcharts}
         />
     )
 }
-
-
-//     const options = {
-//         chart: {
-//             type: 'column'
-//         },
-//         title: {
-//             text: 'Major trophies for some English teams',
-//             align: 'left'
-//         },
-//         xAxis: {
-//             categories: ['Arsenal', 'Chelsea', 'Liverpool', 'Manchester United']
-//         },
-//         yAxis: {
-//             min: 0,
-//             title: {
-//                 text: 'Count trophies'
-//             },
-//             stackLabels: {
-//                 enabled: true
-//             }
-//         },
-//         legend: {
-//             align: 'left',
-//             x: 70,
-//             verticalAlign: 'top',
-//             y: 70,
-//             floating: true,
-//             borderWidth: 1,
-//             shadow: false
-//         },
-//         tooltip: {
-//             headerFormat: '<b>{point.x}</b><br/>',
-//             pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-//         },
-//         plotOptions: {
-//             column: {
-//                 stacking: 'normal',
-//                 dataLabels: {
-//                     enabled: true
-//                 }
-//             }
-//         },
-//         series: [{
-//             name: 'BPL',
-//             data: [3, 5, 1, 13]
-//         }, {
-//             name: 'FA Cup',
-//             data: [14, 8, 8, 12]
-//         }, {
-//             name: 'CL',
-//             data: [0, 2, 6, 3]
-//         }]
-//     };
-
-//     return (
-//         <HighchartsReact
-//             highcharts={Highcharts}
-//             options={options}
-//         />
-//     )
-// }
 
 export default BarChart
