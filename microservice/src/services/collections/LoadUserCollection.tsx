@@ -1,19 +1,17 @@
 import axios from "axios";
 
 // let url = process.env.REACT_APP_PRODUCTION_AUTH_URL;
-// if (process.env.REACT_APP_ENVIRONMENT_PROD == "false") {
+// if (process.env.REACT_APP_ENVIRONMENT_PROD !== "false") {
 //     console.log("hello?")
 //     url = process.env.REACT_APP_DEVELOPMENT_AUTH_URL;
 // }
-
-// console.log(process.env.REACT_APP_ENVIRONMENT_PROD != true)
 
 class LoadUserCollection {
 
     registerUser = async (data: any) => {
         console.log("DATA===", data)
         // const result = await axios.post(`${url}/users`, data)
-        const result = await axios.post(`http://localhost:3001/api/create/user`, data)
+        const result = await axios.post(`http://34.135.100.245/api/create/user`, data)
         console.log("RESULT=====", result)
 
         return result;
@@ -22,7 +20,7 @@ class LoadUserCollection {
     authenticateUser = async (data: { key: string | undefined; }) => {
         data.key = process.env.REACT_APP_SECRET_KEY;
         console.log("loginData===", data)
-        const result = await axios.post(`http://localhost:3001/api/post/login`, data)
+        const result = await axios.post(`http://34.135.100.245/api/post/login`, data)
         console.log("RESULT=====", result)
 
         return result;
@@ -37,7 +35,7 @@ class LoadUserCollection {
             },
             body: JSON.stringify({ userId: userId })
         }
-        const result = await fetch(`http://localhost:3001/api/get/login/verify`, header)
+        const result = await fetch(`http://34.135.100.245/api/get/login/verify`, header)
         const data = await result.json();
 
 

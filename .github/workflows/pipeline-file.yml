@@ -39,7 +39,6 @@ jobs:
         run: docker compose -f docker-compose.yml build
 
       - name: Push Docker image
-        if: github.ref == 'refs/heads/main'
         run: |
           docker tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
           docker push us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
@@ -47,7 +46,6 @@ jobs:
    
 
   deploy_to_gke:
-    if: github.ref == 'refs/heads/main'
     needs: build_and_push
     runs-on: ubuntu-latest
     steps:
