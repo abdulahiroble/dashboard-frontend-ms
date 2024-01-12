@@ -22,12 +22,12 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install react-scripts jest --legacy-peer-deps
+        run: npm install react-scripts --legacy-peer-deps
 
       - name: Run tests
         run: |
           cd microservice
-          npm run jest
+          npm run test
 
   # build_and_push:
   #   runs-on: ubuntu-latest
