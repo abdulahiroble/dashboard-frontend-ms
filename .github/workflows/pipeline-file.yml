@@ -22,7 +22,7 @@ jobs:
       - name: Run tests
         run: |
           cd microservice
-          npm run test
+          npm run jest
 
   # build_and_push:
   #   runs-on: ubuntu-latest
