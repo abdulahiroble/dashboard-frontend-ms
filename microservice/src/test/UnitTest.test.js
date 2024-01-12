@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, screen, act } from '@testing-library/react';
 import Button from '../components/Button';
 // import {screen, configure} from '@testing-library/react'
-import '@testing-library/jest-dom'
+// import '@testing-library/jest-dom'
 import RegistrationForm from '../components/RegistrationForm';
 import ContactFormComponent from '../components/ContactFormComponent';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
