@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm install jest react-scripts @testing-library/react
+        run: npm install react-scripts
 
       - name: Run tests
         run: |
