@@ -85,5 +85,5 @@ jobs:
         run: npm install --save-dev cypress
       
       - name: Run tests
-        run: npx cypress run --config-file /home/runner/work/dashboard-frontend-ms/microservices/cypress.config.ts
+        run: npx cypress run --config-file microservice/cypress.config.ts
       
