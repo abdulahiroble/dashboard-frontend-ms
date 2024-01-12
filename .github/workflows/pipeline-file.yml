@@ -86,6 +86,6 @@ jobs:
       
       - name: Run tests
         run: |
-          cd client
+          cd microservice
           npx cypress run --e2e
       

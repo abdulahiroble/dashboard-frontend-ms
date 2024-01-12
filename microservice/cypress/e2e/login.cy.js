@@ -6,7 +6,7 @@ describe("Sign in user and logout", () => {
     it("passes.", () => {
 
         // Visit the app root
-        cy.visit("http://34.67.87.145/login");
+        cy.visit("http://localhost:3000/login");
         cy.wait(2000);
 
         // fill in the form
