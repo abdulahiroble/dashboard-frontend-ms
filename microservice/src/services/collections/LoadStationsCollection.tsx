@@ -7,7 +7,7 @@ if (process.env.REACT_APP_ENVIRONMENT !== 'prod') {
 }
 class LoadStationsCollection {
     getAllStations = async () => {
-        const result = await axios.get(`${url}api/get/all/stations`);
+        const result = await axios.get(`${url}/api/get/all/stations`);
 
         return result.data
     }
