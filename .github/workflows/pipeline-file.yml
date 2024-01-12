@@ -92,12 +92,20 @@ jobs:
   #       run: |
   #         kubectl rollout status deployment/dashboard-frontend-ms
 
-  # end-to-end-test:
-  #   needs: deploy_to_gke
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout the repo
-  #       uses: actions/checkout@v2
+  end-to-end-test:
+    # needs: deploy_to_gke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Check website availability
+        run: |
+          until curl --head --fail --silent --show-error http://34.67.87.145/; do
+            echo "Website not yet available, retrying..."
+            sleep 10
+          done
+
 
   #     - name: Install dependencies
   #       run: npm install cypress typescript @testing-library/cypress
