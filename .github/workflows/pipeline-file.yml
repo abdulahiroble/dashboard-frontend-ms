@@ -81,7 +81,7 @@ jobs:
           kubectl rollout status deployment/dashboard-frontend-ms
 
   end-to-end-test:
-    # needs: deploy_to_gke
+    needs: deploy_to_gke
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
