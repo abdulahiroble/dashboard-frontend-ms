@@ -6,7 +6,7 @@ if (process.env.REACT_APP_ENVIRONMENT !== 'prod') {
 }
 class LoadFerretCountsCollection {
     getAllFerrets = async () => {
-        const result = await axios.get(`${url}api/get/all/ferretCounts`);
+        const result = await axios.get(`http://34.171.198.65/api/get/all/ferretCounts`);
 
         return result.data
     }

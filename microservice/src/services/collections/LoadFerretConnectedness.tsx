@@ -6,7 +6,7 @@ if (process.env.REACT_APP_ENVIRONMENT !== 'prod') {
 }
 class LoadFerretConnectedness {
     getAllFerretConnectedness = async () => {
-        const result = await axios.get(`${url}api/get/all/ferretConnectedness`);
+        const result = await axios.get(`http://34.171.198.65/api/get/all/ferretConnectedness`);
 
         return result.data
     }

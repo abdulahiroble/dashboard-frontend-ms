@@ -8,7 +8,7 @@ if (process.env.REACT_APP_ENVIRONMENT !== 'prod') {
 class LoadflowCollection {
     [x: string]: any;
     getAllLoadflow = async () => {
-        const result = await axios.get(`${url}api/get/loadflow-nkforsyning`);
+        const result = await axios.get(`http://34.171.198.65/api/get/loadflow-nkforsyning`);
 
         return result.data
     }
