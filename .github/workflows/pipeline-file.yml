@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install react-scripts --legacy-peer-deps @testing-library/jest-dom/extend-expect
+        run: npm install jest ts-jest @types/jest
 
       - name: Run tests
         run: |
