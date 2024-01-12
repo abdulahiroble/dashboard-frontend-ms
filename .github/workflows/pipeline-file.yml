@@ -85,5 +85,7 @@ jobs:
         run: npm install --save-dev cypress
       
       - name: Run tests
-        run: npx cypress run --e2e
+        run: |
+          cd client
+          npx cypress run --e2e
       
