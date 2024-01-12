@@ -10,113 +10,96 @@ on:
   push:
 
 jobs:
-  run_unit_test:
+
+
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v2
+      - name: Set up gcloud SDK
+        uses: google-github-actions/setup-gcloud@v1
         with:
-          node-version: '20'
+          project_id: hovedopgave-23
+          service_account_key: ${{ secrets.SERVICE_USER_CREDS_2 }}
+          install_components: 'gke-gcloud-auth-plugin'
+          export_default_credentials: true
 
-      - name: Install dependencies
-        run: npm install jest ts-jest @types/jest
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: hovedopgave-23
+          service_account: dascboard-svc@hovedopgave-23.iam.gserviceaccount.com
+          credentials_json: ${{ secrets.SERVICE_USER_CREDS_2 }}
 
-      - name: Run tests
+      - name: 'Docker auth'
+        run: |-
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build image
+        run: docker compose -f docker-compose.yml build
+
+      - name: Push Docker image
         run: |
-          cd microservice
-          npm run test
-
-  # build_and_push:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout the repo
-  #       uses: actions/checkout@v2
-
-  #     - name: Set up gcloud SDK
-  #       uses: google-github-actions/setup-gcloud@v1
-  #       with:
-  #         project_id: hovedopgave-23
-  #         service_account_key: ${{ secrets.SERVICE_USER_CREDS_2 }}
-  #         install_components: 'gke-gcloud-auth-plugin'
-  #         export_default_credentials: true
-
-  #     - name: Authenticate to Google Cloud
-  #       uses: google-github-actions/auth@v2
-  #       with:
-  #         project_id: hovedopgave-23
-  #         service_account: dascboard-svc@hovedopgave-23.iam.gserviceaccount.com
-  #         credentials_json: ${{ secrets.SERVICE_USER_CREDS_2 }}
-
-  #     - name: 'Docker auth'
-  #       run: |-
-  #         gcloud auth configure-docker us-central1-docker.pkg.dev
-
-  #     - name: Build image
-  #       run: docker compose -f docker-compose.yml build
-
-  #     - name: Push Docker image
-  #       run: |
-  #         docker tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
-  #         docker push us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
+          docker tag ${{ env.IMAGE_NAME }}:latest us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
+          docker push us-central1-docker.pkg.dev/hovedopgave-23/dashboard-repo/${{ env.IMAGE_NAME }}:${{ env.BUILD_TAG }}
 
    
 
-  # deploy_to_gke:
-  #   needs: build_and_push
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout the repo
-  #       uses: actions/checkout@v2
+  deploy_to_gke:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
 
-  #     - name: Set up gcloud SDK
-  #       uses: google-github-actions/setup-gcloud@v1
-  #       with:
-  #         project_id: hovedopgave-23
-  #         service_account_key: ${{ secrets.SERVICE_USER_CREDS_2 }}
-  #         install_components: 'gke-gcloud-auth-plugin'
-  #         export_default_credentials: true
+      - name: Set up gcloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: hovedopgave-23
+          service_account_key: ${{ secrets.SERVICE_USER_CREDS_2 }}
+          install_components: 'gke-gcloud-auth-plugin'
+          export_default_credentials: true
 
-  #     - name: Authenticate to Google Cloud
-  #       uses: google-github-actions/auth@v2
-  #       with:
-  #         project_id: hovedopgave-23
-  #         service_account: dascboard-svc@hovedopgave-23.iam.gserviceaccount.com
-  #         credentials_json: ${{ secrets.SERVICE_USER_CREDS_2 }}
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: hovedopgave-23
+          service_account: dascboard-svc@hovedopgave-23.iam.gserviceaccount.com
+          credentials_json: ${{ secrets.SERVICE_USER_CREDS_2 }}
 
-  #     - name: deploy to gke
-  #       run: |
-  #         export BUILD_TAG=${{ env.BUILD_TAG }}
-  #         gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project hovedopgave-23
-  #         envsubst < manifests/gks-deployment.yml | kubectl apply -f -
-  #         envsubst < manifests/config-map.yml | kubectl apply -f -
+      - name: deploy to gke
+        run: |
+          export BUILD_TAG=${{ env.BUILD_TAG }}
+          gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project hovedopgave-23
+          envsubst < manifests/gks-deployment.yml | kubectl apply -f -
+          envsubst < manifests/config-map.yml | kubectl apply -f -
 
-  #     - name: Wait for deployment to be ready
-  #       run: |
-  #         kubectl rollout status deployment/dashboard-frontend-ms
+      - name: Wait for deployment to be ready
+        run: |
+          kubectl rollout status deployment/dashboard-frontend-ms
 
-  # end-to-end-test:
-  #   # needs: deploy_to_gke
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout the repo
-  #       uses: actions/checkout@v2
+  end-to-end-test:
+    # needs: deploy_to_gke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
 
-  #     - name: Check website availability
-  #       run: |
-  #         until curl --head --fail --silent --show-error http://34.67.87.145/; do
-  #           echo "Website not yet available, retrying..."
-  #           sleep 10
-  #         done
+      - name: Check website availability
+        run: |
+          until curl --head --fail --silent --show-error http://34.67.87.145/; do
+            echo "Website not yet available, retrying..."
+            sleep 10
+          done
 
 
-  #     - name: Install dependencies
-  #       run: npm install cypress typescript @testing-library/cypress
+      - name: Install dependencies
+        run: npm install cypress typescript @testing-library/cypress
       
-  #     - name: Run tests
-  #       run: |
-  #         cd microservice
-  #         npx cypress run --e2e
+      - name: Run tests
+        run: |
+          cd microservice
+          npx cypress run --e2e
       
