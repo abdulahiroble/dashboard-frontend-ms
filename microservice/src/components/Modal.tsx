@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Modal } from 'antd';
 import { MarkerF } from '@react-google-maps/api';
 import LoadflowCollection from '../services/collections/LoadflowCollection';
@@ -17,7 +17,7 @@ const ModalComponent = ({ stations }: any) => {
 
     const dispatch = useDispatch()
 
-    const showModal = (station: any) => {
+    const showModal = (station: SetStateAction<null>) => {
         dispatch(setIsModalOpen(true))
         setSelectedStation(station)
 

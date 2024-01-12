@@ -2,7 +2,7 @@ describe("Click pagination number to show next event page", () => {
     it("passes", () => {
 
         // Visit the app root
-        cy.visit("http://localhost:3000/login");
+        cy.visit("http://34.67.87.145/login");
         cy.wait(2000);
 
         // fill in the form
@@ -28,7 +28,7 @@ describe("Click pagination number to show next event page", () => {
 
         cy.wait(5000);
 
-        cy.findByRole('listitem', { name: /249/i }).click();
+        cy.findByRole('listitem', { name: /497/i }).click();
 
 
         cy.wait(5000);

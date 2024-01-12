@@ -5,7 +5,6 @@ import Highcharts from 'highcharts'
 import LoadflowCollection from '../services/collections/LoadflowCollection';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import timeline from 'highcharts/modules/timeline';
-import Chart from './Chart';
 
 HighchartsExporting(Highcharts);
 timeline(Highcharts);
@@ -24,29 +23,31 @@ const BarChart: any = () => {
 
     useEffect(() => {
         LoadflowCollection.getAllLoadflow().then((result: any) => {
-            const stationHOL = result.object.filter((item: any) => item.primary_substation === "HOL").map((item: any) => [item.n_failed, item.n_successful].map(Number))
-            const stationMML = result.object.filter((item: any) => item.primary_substation === "MML").map((item: any) => [item.n_failed, item.n_successful].map(Number))
-            const stationNSV = result.object.filter((item: any) => item.primary_substation === "NSV").map((item: any) => [item.n_failed, item.n_successful].map(Number))
-            const stationYDN = result.object.filter((item: any) => item.primary_substation === "YDN").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            console.log(result)
+
+            const stationHOL = result?.object.filter((item: any) => item.primary_substation === "HOL").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            const stationMML = result?.object.filter((item: any) => item.primary_substation === "MML").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            const stationNSV = result?.object.filter((item: any) => item.primary_substation === "NSV").map((item: any) => [item.n_failed, item.n_successful].map(Number))
+            const stationYDN = result?.object.filter((item: any) => item.primary_substation === "YDN").map((item: any) => [item.n_failed, item.n_successful].map(Number))
 
             const hol = [stationHOL.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationHOL.length, stationHOL.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationHOL.length]
             const mml = [stationMML.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationMML.length, stationMML.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationMML.length]
             const nsv = [stationNSV.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationNSV.length, stationNSV.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationNSV.length]
             const ydn = [stationYDN.map((item: any) => item[0]).reduce((a: any, b: any) => a + b, 0) / stationYDN.length, stationYDN.map((item: any) => item[1]).reduce((a: any, b: any) => a + b, 0) / stationYDN.length]
 
-            const averageHol = [(hol[0] / hol.reduce((a, b) => a + b, 0) * 100).toFixed(0), (hol[1] / hol.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
-            const averageMml = [(mml[0] / mml.reduce((a, b) => a + b, 0) * 100).toFixed(0), (mml[1] / mml.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
-            const averageNsv = [(nsv[0] / nsv.reduce((a, b) => a + b, 0) * 100).toFixed(0), (nsv[1] / nsv.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
-            const averageYdn = [(ydn[0] / ydn.reduce((a, b) => a + b, 0) * 100).toFixed(0), (ydn[1] / ydn.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const percentHol = [(hol[0] / hol.reduce((a, b) => a + b, 0) * 100).toFixed(0), (hol[1] / hol.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const percentMml = [(mml[0] / mml.reduce((a, b) => a + b, 0) * 100).toFixed(0), (mml[1] / mml.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const percentNsv = [(nsv[0] / nsv.reduce((a, b) => a + b, 0) * 100).toFixed(0), (nsv[1] / nsv.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
+            const percentYdn = [(ydn[0] / ydn.reduce((a, b) => a + b, 0) * 100).toFixed(0), (ydn[1] / ydn.reduce((a, b) => a + b, 0) * 100).toFixed(0)];
 
             setChartData({
                 series: [
                     {
                         name: 'Successfull %',
-                        data: [parseInt(averageHol[0]), parseInt(averageMml[0]), parseInt(averageNsv[0]), parseInt(averageYdn[0])]
+                        data: [parseInt(percentHol[0]), parseInt(percentMml[0]), parseInt(percentNsv[0]), parseInt(percentYdn[0])]
                     }, {
                         name: 'Failed %',
-                        data: [parseInt(averageHol[1]), parseInt(averageMml[1]), parseInt(averageNsv[1]), parseInt(averageYdn[1])]
+                        data: [parseInt(percentHol[1]), parseInt(percentMml[1]), parseInt(percentNsv[1]), parseInt(percentYdn[1])]
                     }
                 ],
                 title: "loadflow nkforsyning",

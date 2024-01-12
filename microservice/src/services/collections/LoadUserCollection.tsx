@@ -18,12 +18,29 @@ class LoadUserCollection {
     }
 
     authenticateUser = async (data: { key: string | undefined; }) => {
-        data.key = process.env.REACT_APP_SECRET_KEY;
-        console.log("loginData===", data)
-        const result = await axios.post(`http://34.135.100.245/api/post/login`, data)
-        console.log("RESULT=====", result)
+        try {
+            data.key = process.env.REACT_APP_SECRET_KEY;
+            console.log("loginData===", data)
+            const result = await axios.post(`http://34.135.100.245/api/post/login`, data) as any
+            console.log("RESULT=====", result)
 
-        return result;
+            let errorMessage = ""
+
+            if (result.response?.status === 401) {
+                errorMessage = result.response.statusText
+                return result.error = errorMessage;
+            }
+
+            return result;
+        } catch (error: any) {
+            let result = {} as any;
+            let errorMessage = ""
+            console.log("ERRORS====", error)
+            if (error.response.status) {
+                errorMessage = error.response.statusText
+            }
+            return result.error = errorMessage;
+        }
     }
 
     validateSignin = async (token: any, userId: any) => {

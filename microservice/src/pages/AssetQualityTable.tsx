@@ -124,7 +124,7 @@ const AssetQualityTable: React.FC = () => {
     return (
         <div className="App">
             <Sidebar>
-                {/* <Filter defaultValue="All" onChange={onChange} options={
+                <Filter defaultValue="All" onChange={onChange} options={
                     filter?.map((item: any) => {
                         return {
                             value: item,
@@ -132,7 +132,7 @@ const AssetQualityTable: React.FC = () => {
                             onFilter: (value: any, record: { tenant: string | any[]; }) => record.tenant.indexOf(value) === 0,
                         }
                     })
-                } /> */}
+                } />
                 <Tab />
                 <Table columns={columns} dataSource={column} onChange={onChange} />
             </Sidebar>

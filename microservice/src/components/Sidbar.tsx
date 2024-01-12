@@ -1,7 +1,5 @@
-import React, { Children } from 'react';
 import type { MenuProps } from 'antd';
 import { Layout, Menu, theme } from 'antd';
-import DataTable from './DataTable';
 import {
     TableOutlined,
     BarChartOutlined,
@@ -10,27 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import NavBar from './Navbar';
 
-const { Header, Content, Sider } = Layout;
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-    type?: 'group',
-    link?: React.ReactNode,
-): MenuItem {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        type,
-        link,
-    } as MenuItem;
-}
+const { Content, Sider } = Layout;
 
 const items: MenuProps['items'] = [
     {
@@ -81,9 +59,7 @@ const items: MenuProps['items'] = [
 ];
 
 const Sidebar: any = ({ children }: any) => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+
 
     return (
         <>
@@ -107,7 +83,6 @@ const Sidebar: any = ({ children }: any) => {
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
                 </Sider>
                 <Layout className="site-layout" style={{ marginLeft: 200 }}>
-                    {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
                     <Content >
                         <div>
                             {children}
