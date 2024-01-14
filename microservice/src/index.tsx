@@ -21,7 +21,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<ProtectedUserRoute><App /></ProtectedUserRoute>} />
         <Route path='login' element={<Login />} />
         {/* <Route path="profile/:id" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> */}
         <Route path="/registration" element={<Registration />} />
