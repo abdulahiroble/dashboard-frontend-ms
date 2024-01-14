@@ -15,7 +15,7 @@ describe("Click pagination number to show next event page", () => {
         // wait for the page to load
         cy.wait(10000);
 
-        cy.findByRole('menuitem', { name: /bar\-chart compsumption/i }).click();
+        cy.findByRole('menuitem', { name: /bar\-chart consumption/i }).click();
 
         cy.wait(5000);
 

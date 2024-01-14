@@ -42,7 +42,7 @@ const items: MenuProps['items'] = [
         ],
     },
     {
-        label: 'Compsumption',
+        label: 'Consumption',
         key: 'SubMenu',
         icon: <BarChartOutlined />,
         children: [
