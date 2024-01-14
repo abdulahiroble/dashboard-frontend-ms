@@ -1,8 +1,8 @@
 import axios from "axios";
 
 let url = process.env.REACT_APP_PRODUCTION_AUTH_URL;
-if (process.env.REACT_APP_PRODUCTION == "0") {
-    console.log("PRODUCTION?====",process.env.REACT_APP_PRODUCTION )
+if (process.env.REACT_APP_PRODUCTION === "0") {
+    console.log("PRODUCTION?====", process.env.REACT_APP_PRODUCTION)
     url = process.env.REACT_APP_DEV_AUTH_URL;
 }
 
@@ -10,7 +10,6 @@ class LoadUserCollection {
 
     registerUser = async (data: any) => {
         console.log("DATA===", data)
-        // const result = await axios.post(`${url}/users`, data)
         const result = await axios.post(`${url}api/create/user`, data)
         console.log("RESULT=====", result)
 
