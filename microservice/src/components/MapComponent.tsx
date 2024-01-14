@@ -27,11 +27,11 @@ export default function MapComponent() {
             setStation(result.object)
         })
     }, [lat, long]);
-
     const city = {
         lat: lat,
         lng: long
     } as any
+    console.log(city)
 
     const handleMapLoad = (map: any) => {
         map.setOptions({
@@ -46,7 +46,7 @@ export default function MapComponent() {
 
 
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+        googleMapsApiKey: `AIzaSyAEESKLPQxdjdYq41NwEfcvsDZQyAUcSGI`,
     });
 
     if (loadError) return <div>Error loading Maps</div>;
