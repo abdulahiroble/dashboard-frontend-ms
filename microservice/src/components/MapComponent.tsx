@@ -46,7 +46,7 @@ export default function MapComponent() {
 
 
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+        googleMapsApiKey: `AIzaSyCywB8YAGzfsCy72UJ6JaOJYIzTr84P-XA`,
     });
 
     if (loadError) return <div>Error loading Maps</div>;
