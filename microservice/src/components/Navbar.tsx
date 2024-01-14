@@ -45,13 +45,7 @@ const NavBar: React.FC = () => {
     ];
 
 
-
-    const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click ', e);
-        setCurrent(e.key);
-    };
-
-    return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} style={{
+    return <Menu selectedKeys={[current]} mode="horizontal" items={items} style={{
         backgroundColor: '#fff',
         display: 'flex',
         justifyContent: 'end',

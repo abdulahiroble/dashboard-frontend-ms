@@ -2,11 +2,6 @@
 import React from 'react';
 import { Affix, Col, Button, Checkbox, Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
-// import '../Styles/Login.css';
-
-// ==== COMPONENTS ====
-// import Navigation from '../components/Partials/Navigation';
-// import Footer from '../components/Partials/Footer';
 
 // ==== OTHERS ====
 import LoadUserCollection from '../services/collections/LoadUserCollection';
@@ -16,33 +11,25 @@ const Login = () => {
 
 
     const onFinish = async (values: any) => {
-        const result = await LoadUserCollection.authenticateUser(values)
+        const result = await LoadUserCollection.authenticateUser(values) as any
 
-        if (result.data.isActive === false) {
+        console.log("RESULT", result)
+
+        if (result === "Unauthorized") {
+            alert(result)
+        } else if (result.data.isActive === false) {
             alert("User not activated")
             return false;
-        }
-
-        if (result.data.validPassword) {
+        } else if (result.data.validPassword) {
             localStorage.setItem('token', result.data.generatedToken);
             localStorage.setItem('userId', result.data.userId);
-
-            // const adminExists = result.data.userRole.find((x: any) => x.role == 'admin') != undefined ? result.data.userRole.find((x: any) => x.role == 'admin') : {}
-
-            // if (Object.keys(adminExists).length > 0) {
-            //     localStorage.setItem('admin', true as any);
-            // } else {
-            //     localStorage.setItem('admin', false as any);
-            // }
 
             alert("Success")
             navigate("/")
             // CHECK IF ERROR
-        } else if (result.data.errorCdoe != "") {
-            if (result.data.errorCode == "E101") {
-                alert("Wrong email or password")
-            }
         }
+
+
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -67,9 +54,6 @@ const Login = () => {
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Col>
-                    {/* <Affix>
-                <Navigation />
-            </Affix> */}
                     <Col className='Logincontainer' span={40}>
                         <Form
                             className='form'
@@ -111,7 +95,6 @@ const Login = () => {
                             </Form.Item>
                         </Form>
                     </Col>
-                    {/* <Footer /> */}
                 </Col>
             </div>
         </div>

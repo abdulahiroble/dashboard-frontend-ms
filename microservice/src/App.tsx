@@ -1,5 +1,4 @@
 import './App.css';
-import DataTable from './components/DataTable';
 import MapComponent from './components/MapComponent';
 import Sidebar from './components/Sidbar';
 
