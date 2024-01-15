@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: dashboard-config-map
 data:
-  REACT_APP_GOOGLE_MAPS_API_KEY: AIzaSyDdgs8wkgTgXWzrv8Df-Yd3hh3Y4MpZcgk
+  REACT_APP_GOOGLE_MAPS_API_KEY: AIzaSyBewZgsN_kx-QRHcyEdWGhkVP2F98c0-UU
   REACT_APP_SECRET_KEY: AAJ-AWESOME-KEY
   REACT_APP_ENVIRONMENT: prod
   REACT_APP_DEVELOPMENT_URL: localhost
